@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Accent-Based Theme Generator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="controls">
+  <div class="control-group">
+    Pick Accent Color:
+    <input type="color" id="accentPicker" value="#034F40">
+  </div>
+
+  <div class="control-group">
+    
+      <input type="checkbox" id="darkModeToggle">
+      Dark Mode
+    
+  </div>
+
+  <div class="control-group">
+    Saturation: 
+      <span id="saturationValue">100%</span>
+    <input type="range" id="saturationSlider" min="0" max="100" value="100">
+  </div>
+</div>
+
+
+  <div class="preview">
+    <h1>Accent-Based Theme</h1>
+    <p>This theme adapts using your selected accent color.</p>
+
+    <div class="card">
+      <div class="card-content">
+        <h2><div class="card-icon">🌈</div>Example Card</h2>
+        <p>This card uses background, border, and accent colors based on your theme.</p>
+        <button class="accent-btn">Click Me</button>
+      </div>
+    </div>
+
+    <h3>CSS Theme Code:</h3>
+    <pre id="themeCode" class="code-block"></pre>
+  </div>
+
+  <div class="footer">
+    <p>Created by Seckyar with ChatGPT for FUN!!</p>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
