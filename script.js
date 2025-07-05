@@ -47,6 +47,17 @@ function updateThemeFromAccent(hex) {
   document.documentElement.style.setProperty('--saturation', `${s}%`);
   document.documentElement.style.setProperty('--lightness', `${l}%`);
 
+  const btns = document.getElementsByClassName('accent-btn');
+
+  for (let btn of btns) {
+    if (l > 60) {
+      btn.style.setProperty('color', 'black');
+    } else {
+      btn.style.setProperty('color', 'white');
+    }
+  }
+
+
   if (isDark) {
     document.documentElement.style.setProperty('--dark-saturation', `${Math.round(s * 0.7)}%`);
   } else {
@@ -55,6 +66,7 @@ function updateThemeFromAccent(hex) {
 
   updateCodeSnippet(h, s, l, isDark);
 }
+
 
 function updateCodeSnippet(h, s, l, isDark) {
   const lightCSS = `:root {
