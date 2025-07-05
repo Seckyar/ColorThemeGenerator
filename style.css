@@ -190,9 +190,9 @@ body.dark .code-block {
 }
 
 .secondary-btn {
-  background: var(--bg-color);
+  background: var(--secondary);
   color: #fff;
-  border: 2px solid var(--accent);
+  border: none;
   border-radius: 6px;
   padding: 0.5em 1.2em;
   font-size: 1em;
@@ -203,7 +203,7 @@ body.dark .code-block {
   gap: 0.5em;
 }
 .secondary-btn:hover {
-  background: var(--secondary);
+  background: var(--accent);
   color: #fff;
 }
 
