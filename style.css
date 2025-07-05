@@ -3,6 +3,10 @@
   --saturation: 93%;
   --lightness: 16%;
   --accent: hsl(var(--hue), var(--saturation), var(--lightness));
+  --secondary-hue: 348;
+  --secondary-saturation: 78%;
+  --secondary-lightness: 36%;
+  --secondary: hsl(var(--secondary-hue), var(--secondary-saturation), var(--secondary-lightness));
   --bg-color: hsl(var(--hue), var(--saturation), 95%);
   --text-color: hsl(var(--hue), var(--saturation), 15%); 
   --border-color: hsl(var(--hue), var(--saturation), 85%);
@@ -65,17 +69,20 @@ body {
 
 .accent-btn {
   background-color: var(--accent);
-  color: white;
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 6px;
   margin-top: 0.5rem;
   cursor: pointer;
-  transition: background, color 0.3s;
+  transition: background 0.4s, color 0.4s;
+}
+
+.btn{
+  color:white
 }
 
 .accent-btn:hover {
-  background-color: hsl(var(--hue), var(--saturation), 30%);
+  background-color: var(--secondary);
 }
 
 .code-block,
@@ -159,3 +166,86 @@ body.dark .code-block {
   font-size: 1rem;
   color: #666;
 }
+
+/* ...existing code... */
+/* ...existing code... */
+
+.icon-btn {
+  background: transparent; /* No background */
+  color: var(--accent);    /* Icon color */
+  border: none;
+  border-radius: 50%;
+  width: 2.5em;
+  height: 2.5em;
+  font-size: 1.3em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.3em;
+  cursor: pointer;
+  transition: color 0.4s;
+}
+.icon-btn:hover {
+  color: var(--secondary); /* Icon color on hover */
+}
+
+.secondary-btn {
+  background: var(--secondary);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5em 1.2em;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background 0.4s, color 0.4s;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+.secondary-btn:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+.badge {
+  background: var(--accent);
+  color: #fff;
+  border-radius: 1em;
+  padding: 0.2em 0.8em;
+  font-size: 0.95em;
+  font-weight: bold;
+  vertical-align: middle;
+  margin-left: 0.5em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+}
+
+.tag {
+  background: var(--secondary);
+  color: #fff;
+  border-radius: 0.7em;
+  padding: 0.2em 0.9em;
+  font-size: 0.95em;
+  margin-left: 0.5em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+}
+
+.themed-input {
+  border: 2px solid var(--border-color);
+  border-radius: 6px;
+  padding: 0.4em 0.8em;
+  font-size: 1em;
+  background: var(--card-bg);
+  color: var(--text-color);
+  transition: border 0.2s, box-shadow 0.2s;
+}
+.themed-input:focus {
+  border-color: var(--accent);
+  outline: none;
+  box-shadow: 0 0 0 2px var(--secondary);
+}
+
+/* ...existing code... */
