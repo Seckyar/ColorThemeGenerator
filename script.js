@@ -58,7 +58,7 @@ function updateThemeFromAccent(hex) {
 
   // Make secondary a bit lighter and less saturated
   let secondaryL = Math.min(l + 20, 90); // 20% lighter, max 90%
-  let secondaryS = Math.max(s - 15, 30); // 15% less saturated, min 30%
+  let secondaryS = Math.max(s - 15, 5); // 15% less saturated, min 30%
 
   // Set CSS variables for both primary and secondary
   document.documentElement.style.setProperty('--hue', h);
