@@ -1,23 +1,23 @@
 :root {
-  --hue: 168;
-  --saturation: 93%;
-  --lightness: 16%;
+  --hue: 253;
+  --saturation: 92%;
+  --lightness: 30%;
   --accent: hsl(var(--hue), var(--saturation), var(--lightness));
-  --secondary-hue: 348;
-  --secondary-saturation: 78%;
-  --secondary-lightness: 36%;
+  --secondary-hue: 223;
+  --secondary-saturation: 85%;
+  --secondary-lightness: 50%;
   --secondary: hsl(var(--secondary-hue), var(--secondary-saturation), var(--secondary-lightness));
-  --bg-color: hsl(var(--hue), var(--saturation), 95%);
+  --bg-color: hsl(var(--hue), var(--saturation), 98%);
   --text-color: hsl(var(--hue), var(--saturation), 15%); 
   --border-color: hsl(var(--hue), var(--saturation), 85%);
-  --card-bg: hsl(var(--hue), var(--saturation), 98%);
+  --card-bg: hsl(var(--hue), var(--saturation), 95%);
 }
 
 body.dark {
   --bg-color: hsl(var(--hue), var(--dark-saturation), 4%);
   --text-color: hsl(var(--hue), var(--dark-saturation), 90%);
-  --border-color: hsl(var(--hue), var(--dark-saturation), 10%);
-  --card-bg: hsl(var(--hue), var(--dark-saturation), 6%);
+  --border-color: hsl(var(--hue), var(--dark-saturation), 20%);
+  --card-bg: hsl(var(--hue), var(--dark-saturation), 8%);
 }
 
 body {
@@ -29,11 +29,19 @@ body {
 }
 
 /* Responsive container */
-.controls {
-  margin-bottom: 2rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
+h1{
+  margin: 1rem 0;
+}
+input[type="checkbox"] {
+  accent-color: var(--accent);
+}
+
+input[type="range"] {
+  accent-color: var(--accent);
+}
+
+input[type="select"] {
+  background-color: var(--accent);
 }
 
 .controls label {
@@ -70,15 +78,16 @@ body {
 .accent-btn {
   background-color: var(--accent);
   border: none;
+  font-size: 0.9rem;
   padding: 0.5rem 1rem;
   border-radius: 6px;
-  margin-top: 0.5rem;
   cursor: pointer;
   transition: background 0.4s, color 0.4s;
 }
 
 .btn{
-  color:white
+  color:white;
+  font-weight: bold;
 }
 
 .accent-btn:hover {
@@ -106,7 +115,7 @@ body.dark .code-block {
 }
 
 .controls {
-  margin-bottom: 2rem;
+  margin-bottom: 0.8rem;
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
@@ -175,13 +184,13 @@ body.dark .code-block {
   color: var(--accent);    /* Icon color */
   border: none;
   border-radius: 50%;
-  width: 2.5em;
-  height: 2.5em;
-  font-size: 1.3em;
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 1.3rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-right: 0.3em;
+  margin-right: 0.3rem;
   cursor: pointer;
   transition: color 0.4s;
 }
@@ -194,11 +203,11 @@ body.dark .code-block {
   color: #fff;
   border: none;
   border-radius: 6px;
-  padding: 0.5em 1.2em;
-  font-size: 1em;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
   cursor: pointer;
   transition: background 0.4s, color 0.4s;
-  display: flex;
+  display: inline;
   align-items: center;
   gap: 0.5em;
 }

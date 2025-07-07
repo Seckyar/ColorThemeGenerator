@@ -12,17 +12,17 @@
 <div class="controls">
   <div class="control-group">
     Pick Accent Color:
-    <input type="color" id="accentPicker" value="#034F40">
+    <input type="color" id="accentPicker" value="#250693">
   </div>
 
    <div class="control-group">
     Secondary Color:
     <select id="secondaryType">
-      <option value="complementary">Complementary</option>
-      <option value="analogous">Analogous (+30°)</option>
       <option value="analogous-negative">Analogous (−30°)</option>
+      <option value="analogous">Analogous (+30°)</option>
+      <option value="complementary">Complementary</option>
     </select>
-    <span id="secondaryPreview" style="display:inline-block;width:1.5em;height:1.5em;vertical-align:middle;border-radius:50%;border:1px solid #ccc;margin-left:0.5em;"></span>
+    <span id="secondaryPreview" style="display:inline-block; background-color: var(--secondary); width:1.5em;height:1.5em;vertical-align:middle;border-radius:50%;border:1px solid #ccc;margin-left:0.5em;"></span>
   </div>
 
   <div class="control-group">
@@ -37,9 +37,16 @@
       <span id="saturationValue">100%</span>
     <input type="range" id="saturationSlider" min="0" max="100" value="100">
   </div>
+  <button id="saveThemeBtn" class="secondary-btn btn">Save</button>
 </div>
+<div>
+  
+    <select id="presetList" style="margin-right: 10px;">
+      <option value="">Load Preset...</option>
+    </select>
 
-
+    <button id="deletePresetBtn" class="btn" title="Delete selected preset" style="color:#c00;">🗑️</button>
+</div>
   <div class="preview">
     <h1>Accent-Based Theme</h1>
     <p>This theme adapts using your selected accent color.</p>
@@ -78,7 +85,8 @@
       <option value="lch">LCH</option>
       <option value="oklch">OKLCH</option>
     </select>
-    <button id="copyCodeBtn" class="accent-btn btn">Copy Code</button>
+    <button id="copyCodeBtn" class="accent-btn btn">Copy Code</button><br>
+    
   </div>
   <pre id="themeCode" class="code-block"></pre>
   <!-- ...existing code... -->

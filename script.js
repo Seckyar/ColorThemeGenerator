@@ -75,7 +75,7 @@ function updateThemeFromAccent(hex) {
   // ...existing accent button color logic...
   const btns = document.getElementsByClassName('btn');
   for (let btn of btns) {
-    if (l > 60) {
+    if (l > 65) {
       btn.style.setProperty('color', 'black');
     } else {
       btn.style.setProperty('color', 'white');
@@ -172,16 +172,16 @@ function updateCodeSnippet(h, s, l, isDark, secondaryHue = null, secondaryS = nu
     secondary = getColorString(format, secondaryHue, secondaryS, secondaryL);
   }
 
-  const bg = getColorString(format, h, s, 95);
+  const bg = getColorString(format, h, s, 98);
   const text = getColorString(format, h, s, 15);
   const border = getColorString(format, h, s, 85);
-  const card = getColorString(format, h, s, 98);
+  const card = getColorString(format, h, s, 95);
 
   const darkS = Math.round(s * 0.7);
-  const darkBg = getColorString(format, h, darkS, 10);
+  const darkBg = getColorString(format, h, darkS, 4);
   const darkText = getColorString(format, h, darkS, 90);
-  const darkBorder = getColorString(format, h, darkS, 25);
-  const darkCard = getColorString(format, h, darkS, 15);
+  const darkBorder = getColorString(format, h, darkS, 20);
+  const darkCard = getColorString(format, h, darkS, 8);
 
   const lightCSS = `:root {
   --accent: ${accent};
@@ -209,9 +209,22 @@ secondaryType.addEventListener('change', () => {
 });
 
 colorFormat.addEventListener('change', () => {
-  // Re-generate code in selected format
+  // Re-generate code in selected format, including secondary color
   const { h, s, l } = hexToHSL(accentPicker.value);
-  updateCodeSnippet(h, Number(saturationSlider.value), l, document.body.classList.contains('dark'));
+  const mainS = Number(saturationSlider.value);
+  const secondaryTypeValue = secondaryType.value;
+  const secondaryHue = getSecondaryHue(h, secondaryTypeValue);
+  const secondaryL = Math.min(l + 20, 90);
+  const secondaryS = Math.max(mainS - 15, 30);
+  updateCodeSnippet(
+    h,
+    mainS,
+    l,
+    document.body.classList.contains('dark'),
+    secondaryHue,
+    secondaryS,
+    secondaryL
+  );
 });
 
 copyCodeBtn.addEventListener('click', () => {
@@ -220,5 +233,75 @@ copyCodeBtn.addEventListener('click', () => {
     setTimeout(() => { copyCodeBtn.textContent = 'Copy Code'; }, 1200);
   });
 });
+
+// ...existing code...
+
+const saveThemeBtn = document.getElementById('saveThemeBtn');
+const presetList = document.getElementById('presetList');
+const deletePresetBtn = document.getElementById('deletePresetBtn');
+
+// Save current settings as a new preset (prompt for name)
+function saveThemePreset() {
+  let name = prompt('Preset name?');
+  if (!name) return;
+  let presets = JSON.parse(localStorage.getItem('themePresets') || '{}');
+  presets[name] = {
+    accent: accentPicker.value,
+    secondaryType: secondaryType.value,
+    saturation: saturationSlider.value
+  };
+  localStorage.setItem('themePresets', JSON.stringify(presets));
+  updatePresetList();
+  presetList.value = name;
+  saveThemeBtn.textContent = 'Saved!';
+  setTimeout(() => { saveThemeBtn.textContent = 'Save'; }, 1200);
+}
+
+// Load all presets into the dropdown
+function updatePresetList() {
+  let presets = JSON.parse(localStorage.getItem('themePresets') || '{}');
+  presetList.innerHTML = '<option value="">Load Preset...</option>';
+  Object.keys(presets).forEach(name => {
+    let opt = document.createElement('option');
+    opt.value = name;
+    opt.textContent = name;
+    presetList.appendChild(opt);
+  });
+}
+
+// Load a preset by name
+function loadThemePreset(name) {
+  let presets = JSON.parse(localStorage.getItem('themePresets') || '{}');
+  let settings = presets[name];
+  if (settings) {
+    accentPicker.value = settings.accent;
+    secondaryType.value = settings.secondaryType;
+    saturationSlider.value = settings.saturation;
+    saturationValue.textContent = `${settings.saturation}%`;
+    updateThemeFromAccent(settings.accent);
+  }
+}
+
+// Delete selected preset
+function deleteThemePreset() {
+  let name = presetList.value;
+  if (!name) return;
+  if (!confirm(`Delete preset "${name}"?`)) return;
+  let presets = JSON.parse(localStorage.getItem('themePresets') || '{}');
+  delete presets[name];
+  localStorage.setItem('themePresets', JSON.stringify(presets));
+  updatePresetList();
+  presetList.value = "";
+}
+
+// Event listeners
+saveThemeBtn.addEventListener('click', saveThemePreset);
+presetList.addEventListener('change', () => {
+  if (presetList.value) loadThemePreset(presetList.value);
+});
+deletePresetBtn.addEventListener('click', deleteThemePreset);
+
+// On page load, populate preset list
+window.addEventListener('DOMContentLoaded', updatePresetList);
 
 // ...existing code...
