@@ -167,6 +167,9 @@ body.dark .code-block {
     text-align: center;
   }
 
+  .save{
+    width: 100%;;
+  }
   .code-block,
   pre {
     font-size: 0.85rem;
