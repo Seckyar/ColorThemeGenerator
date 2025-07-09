@@ -38,10 +38,17 @@
     <input type="range" id="saturationSlider" min="0" max="100" value="100">
   </div>
   <button id="saveThemeBtn" class="secondary-btn btn">Save</button>
-</div>
+  </div>
+  <div class="control-group">
+    <label for="googleFontSearch">Font:</label>
+    <input type="text" id="googleFontSearch" placeholder="Search font..." style="margin-bottom:0.3em;">
+    <select id="googleFontSelect">
+      <option value="">Loading fonts...</option>
+    </select>
+  </div>
 <div>
   
-    <select id="presetList" style="margin-right: 10px;">
+    <select id="presetList" style="margin: 1rem 0.6rem 0 0;">
       <option value="">Load Preset...</option>
     </select>
 
@@ -74,7 +81,8 @@
       <!-- Input -->
       <input class="themed-input" type="text" placeholder="Type here..." style="width: 140px;">
     </div>
-    
+  <!-- <h3>Font CSS Code:</h3>
+  <pre id="fontCode" class="code-block"></pre> -->
   <h3>CSS Theme Code:</h3>
   <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 0.5rem;">
     <label for="colorFormat">Format:</label>

@@ -166,7 +166,6 @@ function getColorString(format, h, s, l) {
 function updateCodeSnippet(h, s, l, isDark, secondaryHue = null, secondaryS = null, secondaryL = null) {
   const format = colorFormat.value;
   const accent = getColorString(format, h, s, l);
-  // Add secondary color
   let secondary = '';
   if (secondaryHue !== null && secondaryS !== null && secondaryL !== null) {
     secondary = getColorString(format, secondaryHue, secondaryS, secondaryL);
@@ -182,6 +181,12 @@ function updateCodeSnippet(h, s, l, isDark, secondaryHue = null, secondaryS = nu
   const darkText = getColorString(format, h, darkS, 90);
   const darkBorder = getColorString(format, h, darkS, 20);
   const darkCard = getColorString(format, h, darkS, 8);
+
+  // Get the selected font
+  const font = googleFontSelect.value || 'Roboto';
+  const fontImport = `@import url('https://fonts.googleapis.com/css?family=${font.replace(/ /g, '+')}:400,700&display=swap');\n`;
+
+  const fontCSS = `body {\n  font-family: '${font}', sans-serif;\n}\n`;
 
   const lightCSS = `:root {
   --accent: ${accent};
@@ -199,7 +204,29 @@ function updateCodeSnippet(h, s, l, isDark, secondaryHue = null, secondaryS = nu
   --card-bg: ${darkCard};
 }`;
 
-  themeCode.textContent = isDark ? `${lightCSS}\n\n${darkCSS}` : lightCSS;
+  // Combine font and theme CSS
+  themeCode.textContent = fontImport + fontCSS + (isDark ? `${lightCSS}\n\n${darkCSS}` : lightCSS);
+}
+
+// Update setGoogleFont to NOT set fontCode.textContent anymore
+function setGoogleFont(font, updateSelect = false) {
+  if (!font) return;
+  // Remove previous font link if exists
+  let old = document.getElementById('googleFontLink');
+  if (old) old.remove();
+  // Add new font link
+  const link = document.createElement('link');
+  link.id = 'googleFontLink';
+  link.rel = 'stylesheet';
+  link.href = `https://fonts.googleapis.com/css?family=${font.replace(/ /g, '+')}:400,700&display=swap`;
+  document.head.appendChild(link);
+  // Set font on body
+  document.body.style.fontFamily = `'${font}', sans-serif`;
+  // Optionally update select if called directly
+  if (updateSelect) googleFontSelect.value = font;
+  // Update the combined code block
+  // (re-run updateThemeFromAccent to update the code block with new font)
+  updateThemeFromAccent(accentPicker.value);
 }
 
 // ...existing event listeners...
@@ -236,11 +263,77 @@ copyCodeBtn.addEventListener('click', () => {
 
 // ...existing code...
 
-const saveThemeBtn = document.getElementById('saveThemeBtn');
-const presetList = document.getElementById('presetList');
-const deletePresetBtn = document.getElementById('deletePresetBtn');
 
-// Save current settings as a new preset (prompt for name)
+
+
+// ...existing code...
+
+// --- Font logic ---
+const googleFontSelect = document.getElementById('googleFontSelect');
+const googleFontSearch = document.getElementById('googleFontSearch');
+const fontCode = document.getElementById('fontCode');
+const GOOGLE_FONTS_API_KEY = 'AIzaSyBwy2Hf-lIgw09WmhCbQ9ngPK7bEnwjviY';
+let allGoogleFonts = [];
+
+async function loadGoogleFonts(selectedFont = '') {
+  googleFontSelect.innerHTML = `<option value="">Loading fonts...</option>`;
+  try {
+    const res = await fetch(`https://www.googleapis.com/webfonts/v1/webfonts?key=${GOOGLE_FONTS_API_KEY}`);
+    const data = await res.json();
+    data.items.sort((a, b) => a.family.localeCompare(b.family));
+    allGoogleFonts = data.items.map(f => f.family);
+
+    // If no font is selected, default to Roboto
+    let fontToSelect = selectedFont || 'Roboto';
+    renderGoogleFontOptions(allGoogleFonts, fontToSelect);
+    setGoogleFont(fontToSelect, true);
+  } catch (e) {
+    googleFontSelect.innerHTML = `<option value="">Failed to load fonts</option>`;
+  }
+}
+
+function renderGoogleFontOptions(fonts, selectedFont = '') {
+  googleFontSelect.innerHTML = fonts.map(f =>
+    `<option value="${f}"${f === selectedFont ? ' selected' : ''}>${f}</option>`
+  ).join('');
+  googleFontSelect.onchange = (e) => setGoogleFont(e.target.value, true);
+}
+
+// function setGoogleFont(font, updateSelect = false) {
+//   if (!font) return;
+//   // Remove previous font link if exists
+//   let old = document.getElementById('googleFontLink');
+//   if (old) old.remove();
+//   // Add new font link
+//   const link = document.createElement('link');
+//   link.id = 'googleFontLink';
+//   link.rel = 'stylesheet';
+//   link.href = `https://fonts.googleapis.com/css?family=${font.replace(/ /g, '+')}:400,700&display=swap`;
+//   document.head.appendChild(link);
+//   // Set font on body
+//   document.body.style.fontFamily = `'${font}', sans-serif`;
+//   // Show CSS code
+//   fontCode.textContent =
+// `@import url('https://fonts.googleapis.com/css?family=${font.replace(/ /g, '+')}:400,700&display=swap');
+// body {
+//   font-family: '${font}', sans-serif;
+// }`;
+//   // Optionally update select if called directly
+//   if (updateSelect) googleFontSelect.value = font;
+// }
+
+// Font search
+googleFontSearch.addEventListener('input', () => {
+  const q = googleFontSearch.value.trim().toLowerCase();
+  const filtered = allGoogleFonts.filter(f => f.toLowerCase().includes(q));
+  renderGoogleFontOptions(filtered, filtered[0]);
+  // If only one font matches, select and apply it
+  if (filtered.length === 1) {
+    setGoogleFont(filtered[0], true);
+  }
+});
+
+// --- Preset logic (merged color + font) ---
 function saveThemePreset() {
   let name = prompt('Preset name?');
   if (!name) return;
@@ -248,7 +341,8 @@ function saveThemePreset() {
   presets[name] = {
     accent: accentPicker.value,
     secondaryType: secondaryType.value,
-    saturation: saturationSlider.value
+    saturation: saturationSlider.value,
+    font: googleFontSelect.value || 'sans-serif' // Default to sans-serif if no font selected
   };
   localStorage.setItem('themePresets', JSON.stringify(presets));
   updatePresetList();
@@ -257,7 +351,6 @@ function saveThemePreset() {
   setTimeout(() => { saveThemeBtn.textContent = 'Save'; }, 1200);
 }
 
-// Load all presets into the dropdown
 function updatePresetList() {
   let presets = JSON.parse(localStorage.getItem('themePresets') || '{}');
   presetList.innerHTML = '<option value="">Load Preset...</option>';
@@ -269,7 +362,6 @@ function updatePresetList() {
   });
 }
 
-// Load a preset by name
 function loadThemePreset(name) {
   let presets = JSON.parse(localStorage.getItem('themePresets') || '{}');
   let settings = presets[name];
@@ -279,6 +371,17 @@ function loadThemePreset(name) {
     saturationSlider.value = settings.saturation;
     saturationValue.textContent = `${settings.saturation}%`;
     updateThemeFromAccent(settings.accent);
+    // Font
+    if (settings.font) {
+      // If font is not in filtered list, reload all fonts and select it
+      if (!allGoogleFonts.includes(settings.font)) {
+        loadGoogleFonts(settings.font).then(() => setGoogleFont(settings.font, true));
+      } else {
+        renderGoogleFontOptions(allGoogleFonts, settings.font);
+        setGoogleFont(settings.font, true);
+      }
+      googleFontSearch.value = '';
+    }
   }
 }
 
@@ -294,6 +397,9 @@ function deleteThemePreset() {
   presetList.value = "";
 }
 
+const saveThemeBtn = document.getElementById('saveThemeBtn');
+const presetList = document.getElementById('presetList');
+const deletePresetBtn = document.getElementById('deletePresetBtn');
 // Event listeners
 saveThemeBtn.addEventListener('click', saveThemePreset);
 presetList.addEventListener('change', () => {
@@ -301,7 +407,12 @@ presetList.addEventListener('change', () => {
 });
 deletePresetBtn.addEventListener('click', deleteThemePreset);
 
-// On page load, populate preset list
-window.addEventListener('DOMContentLoaded', updatePresetList);
+// ...existing code for deleteThemePreset, event listeners, etc...
+
+// On page load, populate preset list and fonts
+window.addEventListener('DOMContentLoaded', () => {
+  updatePresetList();
+  loadGoogleFonts();
+});
 
 // ...existing code...

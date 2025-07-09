@@ -23,9 +23,13 @@ body.dark {
 body {
   background-color: var(--bg-color);
   color: var(--text-color);
-  font-family: sans-serif;
+  font-family: Roboto;
   padding: 2rem;
   transition: all 0.3s ease;
+}
+
+.btn, .accent-btn, .secondary-btn, .badge, .tag, input[type="text"] {
+  font-family: inherit !important;
 }
 
 /* Responsive container */
@@ -87,7 +91,7 @@ input[type="select"] {
 
 .btn{
   color:white;
-  font-weight: bold;
+  font-weight: 400;
 }
 
 .accent-btn:hover {
@@ -103,7 +107,6 @@ pre {
   border: 1px solid #ccc;
   overflow-x: auto;
   margin-top: 1rem;
-  font-family: monospace;
   white-space: pre-wrap;
 }
 
@@ -118,6 +121,7 @@ body.dark .code-block {
   margin-bottom: 0.8rem;
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 1rem;
 }
 
@@ -222,7 +226,7 @@ body.dark .code-block {
   border-radius: 1em;
   padding: 0.2em 0.8em;
   font-size: 0.95em;
-  font-weight: bold;
+  font-weight: 400;
   vertical-align: middle;
   margin-left: 0.5em;
   display: inline-flex;
