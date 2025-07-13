@@ -1,0 +1,268 @@
+:root {
+  --hue: 253;
+  --saturation: 92%;
+  --lightness: 30%;
+  --accent: hsl(var(--hue), var(--saturation), var(--lightness));
+  --secondary-hue: 223;
+  --secondary-saturation: 85%;
+  --secondary-lightness: 50%;
+  --secondary: hsl(var(--secondary-hue), var(--secondary-saturation), var(--secondary-lightness));
+  --bg-color: hsl(var(--hue), var(--saturation), 98%);
+  --text-color: hsl(var(--hue), var(--saturation), 15%); 
+  --border-color: hsl(var(--hue), var(--saturation), 85%);
+  --card-bg: hsl(var(--hue), var(--saturation), 95%);
+}
+
+body.dark {
+  --bg-color: hsl(var(--hue), var(--dark-saturation), 4%);
+  --text-color: hsl(var(--hue), var(--dark-saturation), 90%);
+  --border-color: hsl(var(--hue), var(--dark-saturation), 20%);
+  --card-bg: hsl(var(--hue), var(--dark-saturation), 8%);
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: Roboto;
+  padding: 2rem;
+  transition: all 0.3s ease;
+}
+
+.btn, .accent-btn, .secondary-btn, .badge, .tag, input[type="text"] {
+  font-family: inherit !important;
+}
+
+/* Responsive container */
+h1{
+  margin: 1rem 0;
+}
+input[type="checkbox"] {
+  accent-color: var(--accent);
+}
+
+input[type="range"] {
+  accent-color: var(--accent);
+}
+
+input[type="select"] {
+  background-color: var(--accent);
+}
+
+.controls label {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.9rem;
+  min-width: 120px;
+}
+
+.card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  background-color: var(--card-bg);
+  border: 2px solid var(--border-color);
+  padding: 1rem;
+  border-radius: 10px;
+  max-width: 600px;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  flex-direction: row;
+}
+
+.card-icon {
+  font-size: 2rem;
+  display: inline;
+  flex-shrink: 0;
+}
+
+.card h2{
+    margin: 0;
+}
+
+.accent-btn {
+  background-color: var(--accent);
+  border: none;
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.4s, color 0.4s;
+}
+
+.btn{
+  color:white;
+  font-weight: 400;
+}
+
+.accent-btn:hover {
+  background-color: var(--secondary);
+}
+
+.code-block,
+pre {
+  background: #f5f5f5;
+  color: #222;
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  overflow-x: auto;
+  margin-top: 1rem;
+  white-space: pre-wrap;
+}
+
+body.dark pre,
+body.dark .code-block {
+  background-color: #1e1e1e;
+  color: #eee;
+  border: 1px solid #333;
+}
+
+.controls {
+  margin-bottom: 0.8rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Optional: make checkbox label text align better */
+.control-group input[type="checkbox"] {
+  margin-right: 0.5rem;
+  transform: scale(1.2);
+}
+
+@media (max-width: 600px) {
+  
+  .controls {
+    flex-direction: column;
+  }
+
+  .control-group {
+    min-width: 100%;
+  }
+}
+
+
+/* ✅ Mobile Responsive */
+@media (max-width: 600px) {
+  body {
+    padding: 1rem;
+  }
+
+  .card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .controls {
+    flex-direction: column;
+  }
+
+  .card-icon {
+    font-size: 1.5rem;
+  }
+
+  .accent-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .save{
+    width: 100%;;
+  }
+  
+  .code-block,
+  pre {
+    font-size: 0.85rem;
+  }
+}
+
+.footer {
+  margin-top: 2rem;
+  text-align: center;
+  font-size: 1rem;
+  color: #666;
+}
+
+/* ...existing code... */
+/* ...existing code... */
+
+.icon-btn {
+  background: transparent; /* No background */
+  color: var(--accent);    /* Icon color */
+  border: none;
+  border-radius: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 1.3rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.3rem;
+  cursor: pointer;
+  transition: color 0.4s;
+}
+.icon-btn:hover {
+  color: var(--secondary); /* Icon color on hover */
+}
+
+.secondary-btn {
+  background: var(--secondary);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.4s, color 0.4s;
+  display: inline;
+  align-items: center;
+  gap: 0.5em;
+}
+.secondary-btn:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+.badge {
+  background: var(--accent);
+  color: #fff;
+  border-radius: 1em;
+  padding: 0.2em 0.8em;
+  font-size: 0.95em;
+  font-weight: 400;
+  vertical-align: middle;
+  margin-left: 0.5em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+}
+
+.tag {
+  background: var(--secondary);
+  color: #fff;
+  border-radius: 0.7em;
+  padding: 0.2em 0.9em;
+  font-size: 0.95em;
+  margin-left: 0.5em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+}
+
+.themed-input {
+  border: 2px solid var(--border-color);
+  border-radius: 6px;
+  padding: 0.4em 0.8em;
+  font-size: 1em;
+  background: var(--card-bg);
+  color: var(--text-color);
+  transition: border 0.2s, box-shadow 0.2s;
+}
+.themed-input:focus {
+  border-color: var(--accent);
+  outline: none;
+  box-shadow: 0 0 0 2px var(--secondary);
+}
+
+/* ...existing code... */

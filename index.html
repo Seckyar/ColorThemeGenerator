@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accent-Based Theme Generator</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/culori@4.0.1/bundled/culori.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+<div class="controls">
+  <div class="control-group">
+    Pick Accent Color:
+    <input type="color" id="accentPicker" value="#250693">
+  </div>
+
+   <div class="control-group">
+    Secondary Color:
+    <select id="secondaryType">
+      <option value="analogous-negative">Analogous (−30°)</option>
+      <option value="analogous">Analogous (+30°)</option>
+      <option value="complementary">Complementary</option>
+    </select>
+    <span id="secondaryPreview" style="display:inline-block; background-color: var(--secondary); width:1.5em;height:1.5em;vertical-align:middle;border-radius:50%;border:1px solid #ccc;margin-left:0.5em;"></span>
+  </div>
+
+  <div class="control-group">
+    
+      <input type="checkbox" id="darkModeToggle">
+      Dark Mode
+    
+  </div>
+
+  <div class="control-group">
+    Saturation: 
+      <span id="saturationValue">100%</span>
+    <input type="range" id="saturationSlider" min="0" max="100" value="100">
+  </div>
+  <button id="saveThemeBtn" class="secondary-btn btn save">Save</button>
+  </div>
+  <div class="control-group">
+    <label for="googleFontSearch">Font:</label>
+    <input type="text" id="googleFontSearch" placeholder="Search font..." style="margin-bottom:0.3em;">
+    <select id="googleFontSelect">
+      <option value="">Loading fonts...</option>
+    </select>
+  </div>
+<div>
+  
+    <select id="presetList" style="margin: 1rem 0.6rem 0 0;">
+      <option value="">Load Preset...</option>
+    </select>
+
+    <button id="deletePresetBtn" class="btn" title="Delete selected preset" style="color:#c00;">🗑️</button>
+</div>
+  <div class="preview">
+    <h1>Accent-Based Theme</h1>
+    <p>This theme adapts using your selected accent color.</p>
+
+    <div class="card">
+      <div class="card-content">
+        <h2><div class="card-icon">🌈</div>Example Card</h2>
+        <p>This card uses background, border, and accent colors based on your theme.</p>
+        <button class="accent-btn btn">Click Me</button>
+      </div>
+    </div>
+    <!-- More UI Examples -->
+    <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; margin-bottom: 1.5rem;">
+      <!-- Social Media Icon Buttons -->
+      <button class="icon-btn" title="Twitter"><i class="fab fa-twitter"></i></button>
+      <button class="icon-btn" title="Facebook"><i class="fab fa-facebook-f"></i></button>
+      <button class="icon-btn" title="Instagram"><i class="fab fa-instagram"></i></button>
+      <button class="icon-btn" title="Github"><i class="fab fa-github"></i></button>
+      <!-- Secondary Button -->
+      <button class="secondary-btn btn"><i class="fas fa-bolt"></i> Secondary Action</button>
+      <!-- Badge -->
+      <span class="badge btn"><i class="fas fa-bell"></i> 99+</span>
+      <!-- Tag -->
+      <span class="tag btn"><i class="fas fa-tag "></i> Theme</span>
+      <!-- Input -->
+      <input class="themed-input" type="text" placeholder="Type here..." style="width: 140px;">
+    </div>
+  <!-- <h3>Font CSS Code:</h3>
+  <pre id="fontCode" class="code-block"></pre> -->
+  <h3>CSS Theme Code:</h3>
+  <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 0.5rem;">
+    <label for="colorFormat">Format:</label>
+    <select id="colorFormat">
+      <option value="hsl">HSL</option>
+      <option value="rgb">RGB</option>
+      <option value="hex">HEX</option>
+      <option value="lch">LCH</option>
+      <option value="oklch">OKLCH</option>
+    </select>
+    <button id="copyCodeBtn" class="accent-btn btn">Copy Code</button><br>
+    
+  </div>
+  <pre id="themeCode" class="code-block"></pre>
+  <!-- ...existing code... -->
+  </div>
+
+  <div class="footer">
+    <p>Version 1.4.0 Created by Seckyar with ChatGPT for FUN!!</p>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
