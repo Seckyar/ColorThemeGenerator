@@ -6,8 +6,10 @@
   --secondary-hue: 223;
   --secondary-saturation: 85%;
   --secondary-lightness: 50%;
+  --dark-saturation: 20%;
   --secondary: hsl(var(--secondary-hue), var(--secondary-saturation), var(--secondary-lightness));
   --bg-color: hsl(var(--hue), var(--saturation), 98%);
+  --input-color: hsl(var(--hue), var(--saturation), 97%);
   --text-color: hsl(var(--hue), var(--saturation), 15%); 
   --border-color: hsl(var(--hue), var(--saturation), 85%);
   --card-bg: hsl(var(--hue), var(--saturation), 95%);
@@ -16,19 +18,23 @@
 body.dark {
   --bg-color: hsl(var(--hue), var(--dark-saturation), 4%);
   --text-color: hsl(var(--hue), var(--dark-saturation), 90%);
+  --input-color: hsl(var(--hue), var(--dark-saturation), 5%);
   --border-color: hsl(var(--hue), var(--dark-saturation), 20%);
   --card-bg: hsl(var(--hue), var(--dark-saturation), 8%);
 }
-
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 body {
   background-color: var(--bg-color);
   color: var(--text-color);
-  font-family: Roboto;
   padding: 2rem;
   transition: all 0.3s ease;
 }
 
-.btn, .accent-btn, .secondary-btn, .badge, .tag, input[type="text"] {
+.btn, .accent-btn, .secondary-btn, .badge, .tag, input[type="text"], input[type="email"], input[type="password"], input[type="sumbit"], button {
   font-family: inherit !important;
 }
 
@@ -51,7 +57,7 @@ input[type="select"] {
 .controls label {
   display: flex;
   flex-direction: column;
-  font-size: 0.9rem;
+  font-size: 1rem;
   min-width: 120px;
 }
 
@@ -64,9 +70,10 @@ input[type="select"] {
   padding: 1rem;
   border-radius: 10px;
   max-width: 600px;
-  margin-bottom: 2rem;
+  margin: 0 auto 2rem auto;
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
   flex-direction: row;
+  justify-content: center;
 }
 
 .card-icon {
@@ -76,21 +83,28 @@ input[type="select"] {
 }
 
 .card h2{
-    margin: 0;
+    margin: 0 0 1rem 0;
+}
+
+.card p {
+  margin: 2rem 0;
 }
 
 .accent-btn {
   background-color: var(--accent);
   border: none;
-  font-size: 0.9rem;
+  font-size: 1rem;
   padding: 0.5rem 1rem;
-  border-radius: 6px;
+  border-radius: 0.5rem;
   cursor: pointer;
   transition: background 0.4s, color 0.4s;
 }
 
-.btn{
+.changeable{
   color:white;
+}
+
+.btn {
   font-weight: 400;
 }
 
@@ -125,13 +139,19 @@ body.dark .code-block {
   gap: 1rem;
 }
 
+.control-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+}
 /* Optional: make checkbox label text align better */
 .control-group input[type="checkbox"] {
   margin-right: 0.5rem;
   transform: scale(1.2);
 }
 
-@media (max-width: 600px) {
+@media (max-width: 650px) {
   
   .controls {
     flex-direction: column;
@@ -144,7 +164,7 @@ body.dark .code-block {
 
 
 /* ✅ Mobile Responsive */
-@media (max-width: 600px) {
+@media (max-width: 650px) {
   body {
     padding: 1rem;
   }
@@ -210,9 +230,9 @@ body.dark .code-block {
   background: var(--secondary);
   color: #fff;
   border: none;
-  border-radius: 6px;
+  border-radius: 0.5rem;
   padding: 0.5rem 1rem;
-  font-size: 0.9rem;
+  font-size: 1rem;
   cursor: pointer;
   transition: background 0.4s, color 0.4s;
   display: inline;
@@ -252,17 +272,107 @@ body.dark .code-block {
 
 .themed-input {
   border: 2px solid var(--border-color);
-  border-radius: 6px;
+  border-radius: 0.5rem;
   padding: 0.4em 0.8em;
   font-size: 1em;
   background: var(--card-bg);
   color: var(--text-color);
   transition: border 0.2s, box-shadow 0.2s;
 }
+
 .themed-input:focus {
   border-color: var(--accent);
   outline: none;
   box-shadow: 0 0 0 2px var(--secondary);
 }
 
-/* ...existing code... */
+/* Split Layout Form */
+.split-form {
+    display: flex;
+    background: var(--card-bg);
+    border-radius: 20px;
+    overflow: hidden;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    box-shadow: 0 10px 25px var(--card-bg);
+    border: 2px solid var(--border-color);
+    margin-bottom: 2rem;
+}
+
+.form-side h2{
+  margin-bottom: 1rem;
+}
+
+.split-form .image-side {
+    flex: 1;
+    background: linear-gradient(45deg, var(--accent), var(--secondary));
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: var(--text-color);
+    text-align: center;
+}
+
+.split-form .form-side {
+    flex: 1;
+    padding: 3rem;
+}
+
+.split-form input {
+    width: 100%;
+    color: var(--text-color);
+    background-color: var(--input-color);
+    padding: 1rem;
+    margin: 0.5rem 0;
+    font-size: 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    border: 2px solid var(--border-color);
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.split-form input:focus {
+    border-color: var(--accent);
+  outline: none;
+  box-shadow: 0 0 0 2px var(--secondary);
+}
+
+.split-form button {
+    width: 100%;
+    font-size: 1rem;
+    padding: 1rem;
+    margin-top: 1.5rem;
+    background: var(--accent);
+    color: var(--text-color);
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.split-form button:hover {
+    background-color: var(--secondary);
+}
+
+@media (max-width: 768px) {
+  .split-form {
+    flex-direction: column;
+    margin: 0;
+    
+  }
+
+  .split-form .image-side,
+  .split-form .form-side {
+    padding: 2rem;
+  }
+
+  .split-form .image-side {
+    order: -1; /* move image side above the form */
+    border-bottom: 1px solid var(--border-color);
+  }
+}

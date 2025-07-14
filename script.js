@@ -73,12 +73,12 @@ function updateThemeFromAccent(hex) {
   secondaryPreview.style.background = secondaryColor;
 
   // ...existing accent button color logic...
-  const btns = document.getElementsByClassName('btn');
-  for (let btn of btns) {
+  const changeables = document.getElementsByClassName('changeable');
+  for (let changeable of changeables) {
     if (l > 65) {
-      btn.style.setProperty('color', 'black');
+      changeable.style.setProperty('color', 'black');
     } else {
-      btn.style.setProperty('color', 'white');
+      changeable.style.setProperty('color', 'white');
     }
   }
 
