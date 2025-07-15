@@ -363,7 +363,7 @@ body.dark .code-block {
   .split-form {
     flex-direction: column;
     margin: 0;
-    
+    margin-bottom: 2rem;
   }
 
   .split-form .image-side,
@@ -375,4 +375,53 @@ body.dark .code-block {
     order: -1; /* move image side above the form */
     border-bottom: 1px solid var(--border-color);
   }
+}
+
+.gradient-border-mask {
+  position: relative;
+  display: inline-block;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  color: var(--text-color);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  transition: color 0.4s;
+}
+
+.gradient-border-mask::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 0.5rem;
+  padding: 3px; /* Border thickness */
+  background: linear-gradient(45deg, var(--accent), var(--secondary));
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  transition: opacity 0.4s;
+}
+
+.gradient-border-mask::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 0.5rem;
+  background: linear-gradient(45deg, var(--accent), var(--secondary));
+  opacity: 0;
+  transition: opacity 0.4s;
+  z-index: -1;
+}
+
+.gradient-border-mask:hover::after {
+  opacity: 1;
+}
+
+.gradient-border-mask:hover {
+  color: white; /* Optional: text color when filled */
 }
