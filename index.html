@@ -21,6 +21,11 @@
       <option value="analogous-negative">Analogous (−30°)</option>
       <option value="analogous">Analogous (+30°)</option>
       <option value="complementary">Complementary</option>
+      <option value="triadic">Triadic</option>
+      <option value="split-complementary">Split Complementary</option>
+      <option value="split-complementary-negative">Split Complementary Negative</option>
+      <option value="tetradic">Tetradic</option>
+      <option value="monochromatic">Monochromatic</option>
     </select>
     <span id="secondaryPreview" style="display:inline-block; background-color: var(--secondary); width:1.5em;height:1.5em;vertical-align:middle;border-radius:50%;border:1px solid #ccc;margin-left:0.5em;"></span>
   </div>
@@ -42,7 +47,7 @@
   <div class="control-group">
     <label for="googleFontSearch">Font:</label>
     <input type="text" id="googleFontSearch" placeholder="Search font..." style="margin-bottom:0.3em;">
-    <select id="googleFontSelect">
+    <select id="googleFontSelect" style="min-width: 7rem;">
       <option value="">Loading fonts...</option>
     </select>
   </div>
@@ -58,7 +63,7 @@
     <h1>Color and Font Finder</h1>
     <div class="card">
       <div class="card-content">
-        <h2><div class="card-icon">🌈</div>Example Card</h2>
+        <h2><div class="card-icon"></div>Example Card</h2>
         <p>This card uses background, border, and accent colors based on your theme.</p>
         <button class="accent-btn btn changeable">Click Me</button>
       </div>
@@ -71,13 +76,7 @@
       <button class="icon-btn" title="Instagram"><i class="fab fa-instagram"></i></button>
       <button class="icon-btn" title="Github"><i class="fab fa-github"></i></button>
       <!-- Secondary Button -->
-      <button class="secondary-btn btn changeable"><i class="fas fa-bolt"></i> Secondary Action</button>
-      <!-- Badge -->
-      <span class="badge btn changeable"><i class="fas fa-bell"></i> 99+</span>
-      <!-- Tag -->
-      <span class="tag btn"><i class="fas fa-tag "></i> Theme</span>
-      <!-- Input -->
-      <input class="themed-input" type="text" placeholder="Type here..." style="width: 140px;">
+      
     </div>
     <div class="split-form">
         <div class="image-side changeable">
@@ -105,7 +104,7 @@
       <option value="lch">LCH</option>
       <option value="oklch">OKLCH</option>
     </select>
-    <button id="copyCodeBtn" class="accent-btn btn changeable">Copy Code</button><br>
+    <button id="copyCodeBtn" class="gradient-border-mask">Copy Code</button><br>
     
   </div>
   <pre id="themeCode" class="code-block"></pre>

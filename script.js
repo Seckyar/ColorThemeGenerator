@@ -8,10 +8,17 @@ const secondaryPreview = document.getElementById('secondaryPreview');
 
 
 function getSecondaryHue(primaryHue, type) {
-  if (type === 'complementary') return (primaryHue + 180) % 360;
-  if (type === 'analogous') return (primaryHue + 30) % 360;
-  if (type === 'analogous-negative') return (primaryHue + 330) % 360; // -30° = +330°
-  return primaryHue;
+  switch (type) {
+    case 'complementary': return (primaryHue + 180) % 360;
+    case 'analogous': return (primaryHue + 30) % 360;
+    case 'analogous-negative': return (primaryHue + 330) % 360;
+    case 'triadic': return (primaryHue + 120) % 360;
+    case 'split-complementary': return (primaryHue + 150) % 360;
+    case 'split-complementary-negative': return (primaryHue + 210) % 360;
+    case 'tetradic': return (primaryHue + 90) % 360;
+    case 'monochromatic': return primaryHue;
+    default: return primaryHue;
+  }
 }
 
 function hexToHSL(hex) {
