@@ -27,24 +27,23 @@
       <option value="tetradic">Tetradic</option>
       <option value="monochromatic">Monochromatic</option>
     </select>
-    <span id="secondaryPreview" style="display:inline-block; background-color: var(--secondary); width:1.5em;height:1.5em;vertical-align:middle;border-radius:50%;border:1px solid #ccc;margin-left:0.5em;"></span>
+    <span id="secondaryPreview" style="display:inline-block; background-color: var(--secondary); width:1.5em;height:1.5em;vertical-align:middle; border:1px solid #ccc;margin-left:0.5em;"></span>
   </div>
 
   <div class="control-group">
-    
-      <input type="checkbox" id="darkModeToggle">
-      Dark Mode
-    
+    <input type="checkbox" id="darkModeToggle">
+    Dark Mode
   </div>
 
   <div class="control-group">
     Saturation: 
-      <span id="saturationValue">100%</span>
+    <span id="saturationValue">100%</span>
     <input type="range" id="saturationSlider" min="0" max="100" value="100">
   </div>
-  <button id="saveThemeBtn" class="secondary-btn btn save changeable">Save</button>
-  </div>
-  <div class="control-group">
+  
+  
+</div>
+<div class="control-group">
     <label for="googleFontSearch">Font:</label>
     <input type="text" id="googleFontSearch" placeholder="Search font..." style="margin-bottom:0.3em;">
     <select id="googleFontSelect" style="min-width: 7rem;">
@@ -52,46 +51,45 @@
     </select>
   </div>
 <div>
-  
+    <button id="saveThemeBtn" class="secondary-btn btn save changeable">Save</button>
     <select id="presetList" style="margin: 1rem 0.6rem 0 0;">
       <option value="">Load Preset...</option>
     </select>
-
-    <button id="deletePresetBtn" class="btn" title="Delete selected preset" style="color:#c00;">🗑️</button>
+    <button id="deletePresetBtn" class="btn delete-btn" title="Delete selected preset">Delete</button>
 </div>
-  <div class="preview">
-    <h1>Color and Font Finder</h1>
-    <div class="card">
-      <div class="card-content">
-        <h2><div class="card-icon"></div>Example Card</h2>
-        <p>This card uses background, border, and accent colors based on your theme.</p>
-        <button class="accent-btn btn changeable">Click Me</button>
+<div class="preview">
+  <h1>Color and Font Finder</h1>
+  <div class="card">
+    <div class="card-content">
+      <h2><div class="card-icon"></div>Example Card</h2>
+      <p>This card uses background, border, and accent colors based on your theme.</p>
+      <button class="accent-btn btn changeable">Click Me</button>
+    </div>
+  </div>
+  <!-- More UI Examples -->
+  <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; margin-bottom: 1.5rem; justify-content: center;">
+    <!-- Social Media Icon Buttons -->
+    <button class="icon-btn" title="Twitter"><i class="fab fa-twitter"></i></button>
+    <button class="icon-btn" title="Facebook"><i class="fab fa-facebook-f"></i></button>
+    <button class="icon-btn" title="Instagram"><i class="fab fa-instagram"></i></button>
+    <button class="icon-btn" title="Github"><i class="fab fa-github"></i></button>
+    <!-- Secondary Button -->
+    
+  </div>
+  <div class="split-form">
+      <div class="image-side changeable">
+          <h2>Welcome Back!</h2>
+          <p>Enter your details to access your account</p>
       </div>
-    </div>
-    <!-- More UI Examples -->
-    <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; margin-bottom: 1.5rem; justify-content: center;">
-      <!-- Social Media Icon Buttons -->
-      <button class="icon-btn" title="Twitter"><i class="fab fa-twitter"></i></button>
-      <button class="icon-btn" title="Facebook"><i class="fab fa-facebook-f"></i></button>
-      <button class="icon-btn" title="Instagram"><i class="fab fa-instagram"></i></button>
-      <button class="icon-btn" title="Github"><i class="fab fa-github"></i></button>
-      <!-- Secondary Button -->
-      
-    </div>
-    <div class="split-form">
-        <div class="image-side changeable">
-            <h2>Welcome Back!</h2>
-            <p>Enter your details to access your account</p>
-        </div>
-        <div class="form-side">
-            <h2>Sign In</h2>
-            <form>
-                <input type="email" placeholder="Email" required>
-                <input type="password" placeholder="Password" required>
-                <button class="changeable" type="submit">Login</button>
-            </form>
-        </div>
-    </div>
+      <div class="form-side">
+          <h2>Sign In</h2>
+          <form>
+              <input type="email" placeholder="Email" required>
+              <input type="password" placeholder="Password" required>
+              <button class="changeable" type="submit">Login</button>
+          </form>
+      </div>
+  </div>
   <!-- <h3>Font CSS Code:</h3>
   <pre id="fontCode" class="code-block"></pre> -->
   <h3>CSS Theme Code:</h3>
@@ -109,10 +107,10 @@
   </div>
   <pre id="themeCode" class="code-block"></pre>
   <!-- ...existing code... -->
-  </div>
+</div>
 
   <div class="footer">
-    <p>Version 1.5.0 Created by Seckyar with ChatGPT for FUN!!</p>
+    <p>Version 1.6.0 Created by Seckyar with ChatGPT for FUN!!</p>
   </div>
   <script src="script.js"></script>
 </body>

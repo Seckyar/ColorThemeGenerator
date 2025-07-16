@@ -13,6 +13,7 @@
   --text-color: hsl(var(--hue), var(--saturation), 15%); 
   --border-color: hsl(var(--hue), var(--saturation), 85%);
   --card-bg: hsl(var(--hue), var(--saturation), 95%);
+  --error: hsl(0, var(--saturation), 40%);
 }
 
 body.dark {
@@ -42,6 +43,7 @@ body {
 h1{
   margin: 1rem 0;
 }
+
 input[type="checkbox"] {
   accent-color: var(--accent);
 }
@@ -108,6 +110,22 @@ input[type="select"] {
   font-weight: 400;
 }
 
+.save{
+  margin-right: 0.6rem;;
+}
+.delete-btn{
+  background-color: var(--error);
+  color:white; 
+  border: none; 
+  border-radius: 0.5rem; 
+  font-size: 1rem; 
+  padding: 0.5rem 1rem; 
+  transition: background-color 0.4s;
+}
+
+.delete-btn:hover {
+  background-color: darkred;
+}
 .accent-btn:hover {
   background-color: var(--secondary);
 }
@@ -149,52 +167,6 @@ body.dark .code-block {
 .control-group input[type="checkbox"] {
   margin-right: 0.5rem;
   transform: scale(1.2);
-}
-
-@media (max-width: 650px) {
-  
-  .controls {
-    flex-direction: column;
-  }
-
-  .control-group {
-    min-width: 100%;
-  }
-}
-
-
-/* ✅ Mobile Responsive */
-@media (max-width: 650px) {
-  body {
-    padding: 1rem;
-  }
-
-  .card {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .controls {
-    flex-direction: column;
-  }
-
-  .card-icon {
-    font-size: 1.5rem;
-  }
-
-  .accent-btn {
-    width: 100%;
-    text-align: center;
-  }
-
-  .save{
-    width: 100%;;
-  }
-  
-  .code-block,
-  pre {
-    font-size: 0.85rem;
-  }
 }
 
 .footer {
@@ -359,7 +331,44 @@ body.dark .code-block {
     background-color: var(--secondary);
 }
 
+/* ✅ Mobile Responsive */
 @media (max-width: 768px) {
+  body {
+    padding: 1rem;
+  }
+
+  .card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .control-group {
+    min-width: 100%;
+  }
+
+  .controls {
+    flex-direction: column;
+  }
+
+  .card-icon {
+    font-size: 1.5rem;
+  }
+
+  .accent-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .save{
+    width: 100%;
+    margin: 1rem 0 0.5rem 0;
+  }
+  
+  .code-block,
+  pre {
+    font-size: 0.85rem;
+  }
+
   .split-form {
     flex-direction: column;
     margin: 0;
