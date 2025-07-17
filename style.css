@@ -12,7 +12,7 @@
   --input-color: hsl(var(--hue), var(--saturation), 97%);
   --text-color: hsl(var(--hue), var(--saturation), 15%); 
   --border-color: hsl(var(--hue), var(--saturation), 85%);
-  --card-bg: hsl(var(--hue), var(--saturation), 95%);
+  --card-bg-color: hsl(var(--hue), var(--saturation), 95%);
   --error: hsl(0, var(--saturation), 40%);
 }
 
@@ -21,7 +21,7 @@ body.dark {
   --text-color: hsl(var(--hue), var(--dark-saturation), 90%);
   --input-color: hsl(var(--hue), var(--dark-saturation), 5%);
   --border-color: hsl(var(--hue), var(--dark-saturation), 20%);
-  --card-bg: hsl(var(--hue), var(--dark-saturation), 8%);
+  --card-bg-color: hsl(var(--hue), var(--dark-saturation), 8%);
 }
 *{
   box-sizing: border-box;
@@ -67,7 +67,7 @@ input[type="select"] {
   display: flex;
   align-items: flex-start;
   gap: 1rem;
-  background-color: var(--card-bg);
+  background-color: var(--card-bg-color);
   border: 2px solid var(--border-color);
   padding: 1rem;
   border-radius: 10px;
@@ -247,7 +247,7 @@ body.dark .code-block {
   border-radius: 0.5rem;
   padding: 0.4em 0.8em;
   font-size: 1em;
-  background: var(--card-bg);
+  background: var(--card-bg-color);
   color: var(--text-color);
   transition: border 0.2s, box-shadow 0.2s;
 }
@@ -261,13 +261,13 @@ body.dark .code-block {
 /* Split Layout Form */
 .split-form {
     display: flex;
-    background: var(--card-bg);
+    background: var(--card-bg-color);
     border-radius: 20px;
     overflow: hidden;
     width: 100%;
     max-width: 800px;
     margin: 0 auto;
-    box-shadow: 0 10px 25px var(--card-bg);
+    box-shadow: 0 10px 25px var(--card-bg-color);
     border: 2px solid var(--border-color);
     margin-bottom: 2rem;
 }

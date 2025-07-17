@@ -65,7 +65,7 @@ body {
   --bg-color: hsl(253, 100%, 98%);
   --text-color: hsl(253, 100%, 15%);
   --border-color: hsl(253, 100%, 85%);
-  --card-bg: hsl(253, 100%, 95%);
+  --card-bg-color: hsl(253, 100%, 95%);
 }
 ```
 

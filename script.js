@@ -206,14 +206,14 @@ function updateCodeSnippet(h, s, l, isDark, secondaryHue, secondaryS, secondaryL
   --bg-color: ${bg};
   --text-color: ${text};
   --border-color: ${border};
-  --card-bg: ${card};
+  --card-bg-color: ${card};
 }`;
 
   const darkCSS = `body.dark {
   --bg-color: ${darkBg};
   --text-color: ${darkText};
   --border-color: ${darkBorder};
-  --card-bg: ${darkCard};
+  --card-bg-color: ${darkCard};
 }`;
 
   themeCode.textContent = fontImport + fontCSS + lightCSS + (isDark ? `\n\n${darkCSS}` : '');
