@@ -148,7 +148,6 @@ function getRandomTheme() {
   updateThemeFromRandomAccent(randomColor, randomSecondaryType, randomSaturation, randomFont);
 }
 
-
 // === Theme Update ===
 
 function updateThemeFromRandomAccent(randomHex, randomSecondaryType, randomSaturation, randomFont) {

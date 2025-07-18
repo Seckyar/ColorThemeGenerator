@@ -50,7 +50,7 @@ The theme code includes:
 * Google Fonts API
 * Local Storage (for Save/Load feature)
 
-## 🧪 Example Output
+## 🧪 Example Output In HSL
 
 ```css
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap');

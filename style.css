@@ -117,6 +117,7 @@ input[type="select"] {
 .random{
   margin-right: 0.6rem;;
 }
+
 .delete-btn{
   background-color: var(--error);
   color:white; 
