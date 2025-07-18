@@ -7,6 +7,7 @@ const saturationValue = document.getElementById('saturationValue');
 const secondaryType = document.getElementById('secondaryType');
 const secondaryPreview = document.getElementById('secondaryPreview');
 
+const randomThemeBtn = document.getElementById('randomTheme');
 const saveThemeBtn = document.getElementById('saveThemeBtn');
 const presetList = document.getElementById('presetList');
 const deletePresetBtn = document.getElementById('deletePresetBtn');
@@ -116,7 +117,75 @@ function getColorString(format, h, s, l) {
   }
 }
 
+function getRandomTheme() {
+  const letters = '0123456789ABCDEF';
+  let randomColor = '#';
+  for (let i = 0; i < 6; i++) {
+    randomColor += letters[Math.floor(Math.random() * 16)];
+  }
+  accentPicker.value = randomColor;
+
+  const secondary = [
+    'complementary',
+    'analogous',
+    'analogous-negative',
+    'triadic',
+    'split-complementary',
+    'split-complementary-negative',
+    'tetradic',
+    'monochromatic'
+  ];
+  const randomSecondaryType = secondary[Math.floor(Math.random() * secondaryType.length)];
+  secondaryType.value = randomSecondaryType;
+  
+  const randomSaturation = Math.floor(Math.random() * 51) + 50; // Random radomSbetween 50% and 100%
+  saturationValue.textContent = `${randomSaturation}%`;
+  saturationSlider.value = randomSaturation;
+
+  const fontIndex = Math.floor(Math.random() * allGoogleFonts.length);
+  const randomFont = allGoogleFonts[fontIndex];
+
+  updateThemeFromRandomAccent(randomColor, randomSecondaryType, randomSaturation, randomFont);
+}
+
+
 // === Theme Update ===
+
+function updateThemeFromRandomAccent(randomHex, randomSecondaryType, randomSaturation, randomFont) {
+  let { h, s, l } = hexToHSL(randomHex);
+  s = randomSaturation; // Use random saturation
+  const isDark = document.body.classList.contains('dark');
+  
+
+  const secondaryHue = getSecondaryHue(h, randomSecondaryType);
+  const secondaryS = Math.max(s - 15, 5);
+  const secondaryL = Math.min(l + 20, 90);
+  const secondaryColor = `hsl(${secondaryHue}, ${secondaryS}%, ${secondaryL}%)`;
+  
+  // Set CSS variables
+  const root = document.documentElement.style;
+  root.setProperty('--hue', h);
+  root.setProperty('--saturation', `${s}%`);
+  root.setProperty('--lightness', `${l}%`);
+  root.setProperty('--secondary-hue', secondaryHue);
+  root.setProperty('--secondary-saturation', `${secondaryS}%`);
+  root.setProperty('--secondary-lightness', `${secondaryL}%`);
+
+  // Preview color
+  secondaryPreview.style.background = secondaryColor;
+
+  // Text color adjustment for contrast
+  const changeables = document.getElementsByClassName('changeable');
+  for (let el of changeables) {
+    el.style.color = l > 65 ? 'black' : 'white';
+  }
+
+  // Set dark mode saturation
+  root.setProperty('--dark-saturation', `${isDark ? Math.round(s * 0.7) : s}%`);
+
+  setGoogleFont(randomFont, true); // Set random font
+  updateCodeSnippet(h, s, l, isDark, secondaryHue, secondaryS, secondaryL);
+}
 
 function updateThemeFromAccent(hex) {
   let { h, s, l } = hexToHSL(hex);
@@ -347,6 +416,10 @@ presetList.addEventListener('change', () => {
 });
 
 deletePresetBtn.addEventListener('click', deleteThemePreset);
+
+randomThemeBtn.addEventListener('click', () =>{
+  getRandomTheme();
+});
 
 window.addEventListener('DOMContentLoaded', () => {
   updatePresetList();

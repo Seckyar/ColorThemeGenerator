@@ -3,19 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Accent-Based Theme Generator</title>
+  <title>Dynamic Color Theme Generator</title>
   <link rel="stylesheet" href="style.css">
   <script src="https://cdn.jsdelivr.net/npm/culori@4.0.1/bundled/culori.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 <div class="controls">
-  <div class="control-group">
-    Pick Accent Color:
-    <input type="color" id="accentPicker" value="#250693">
-  </div>
+    <div class="control-group">
+      Pick Accent Color:
+      <input type="color" id="accentPicker" value="#250693">
+    </div>
 
-   <div class="control-group">
+    <div class="control-group">
     Secondary Color:
     <select id="secondaryType">
       <option value="analogous-negative">Analogous (−30°)</option>
@@ -52,6 +52,7 @@
   </div>
 <div>
     <button id="saveThemeBtn" class="secondary-btn btn save changeable">Save</button>
+    <button id="randomTheme" class="random btn accent-btn changeable" title="Create random theme">Randomize</button>
     <select id="presetList" style="margin: 1rem 0.6rem 0 0;">
       <option value="">Load Preset...</option>
     </select>

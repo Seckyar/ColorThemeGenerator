@@ -111,6 +111,10 @@ input[type="select"] {
 }
 
 .save{
+  margin-right: 0.6rem;
+}
+
+.random{
   margin-right: 0.6rem;;
 }
 .delete-btn{
