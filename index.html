@@ -6,9 +6,13 @@
   <title>Dynamic Color Theme Generator</title>
   <link rel="stylesheet" href="style.css">
   <script src="https://cdn.jsdelivr.net/npm/culori@4.0.1/bundled/culori.min.js"></script>
+  <!-- CDN in HTML -->
+  <script src="https://cdn.jsdelivr.net/npm/appwrite@13.0.1"></script>
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
+<h1>Dynamic Color Theme Generator</h1>
 <div class="controls">
     <div class="control-group">
       Pick Accent Color:
@@ -54,12 +58,16 @@
     <button id="saveThemeBtn" class="secondary-btn btn save changeable">Save</button>
     <button id="randomTheme" class="random btn accent-btn changeable" title="Create random theme">Randomize</button>
     <select id="presetList" style="margin: 1rem 0.6rem 0 0;">
-      <option value="">Load Preset...</option>
+      <option value="">Saved Preset...</option>
     </select>
     <button id="deletePresetBtn" class="btn delete-btn" title="Delete selected preset">Delete</button>
+    <h2>Recnetly popular Theme</h2>
+    <div id="themeLoading" style="text-align: left; padding: 1rem 0;">Loading themes...</div>
+    <div id="trendingThemes" class="themes-container"></div>
+
 </div>
 <div class="preview">
-  <h1>Color and Font Finder</h1>
+  <h1>Preview</h1>
   <div class="card">
     <div class="card-content">
       <h2><div class="card-icon"></div>Example Card</h2>
@@ -111,7 +119,7 @@
 </div>
 
   <div class="footer">
-    <p>Version 1.7.0 Created by Seckyar with ChatGPT for FUN!!</p>
+    <p>Version 1.8.0 Created by Seckyar with ChatGPT for FUN!!</p>
   </div>
   <script src="script.js"></script>
 </body>
