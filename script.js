@@ -21,7 +21,84 @@ const fontCode = document.getElementById('fontCode');
 const GOOGLE_FONTS_API_KEY = 'AIzaSyBwy2Hf-lIgw09WmhCbQ9ngPK7bEnwjviY';
 let allGoogleFonts = [];
 
+const { Client, Databases, Account, Query } = Appwrite;
+
+const client = new Client();
+
+client
+  .setEndpoint('https://fra.cloud.appwrite.io/v1') // Replace with your Appwrite endpoint
+  .setProject('687b3aa300085bb26671'); // Replace with your Appwrite project ID
+
+// Now you can use Account, Databases, etc.
+const databases = new Databases(client);
+
+const loading = document.getElementById('themeLoading');
+loading.style.display = 'block'; 
 // === Utility Functions ===
+databases.listDocuments(
+'687b3b3b0011d5710d77',
+'687b3bf200180bc11712',
+[
+  Query.orderDesc('$createdAt'), // Sort by newest first
+  Query.limit(10)                // Limit to latest 10
+]
+).then(response => {
+  const container = document.getElementById('trendingThemes');
+  container.innerHTML = ''; // Clear any existing content
+
+// Store document data by card ID
+const themeDataMap = new Map();
+
+response.documents.forEach(doc => {
+  const { hue, saturation, lightness, font, name } = doc;
+  const color = `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+
+  const card = document.createElement('div');
+  card.className = 'theme-card';
+  const uniqueId = crypto.randomUUID(); // Or use doc.$id
+  card.dataset.themeId = uniqueId;
+
+  // Save the data in a Map
+  themeDataMap.set(uniqueId, doc);
+
+  card.innerHTML = `
+    <div class="theme-color" style="background:${color}; color:white;">
+      ${name}
+    </div>
+  `;
+
+  container.appendChild(card);
+
+  loading.style.display = 'none';  
+});
+
+// 🧠 Single event listener for all cards
+container.addEventListener('click', e => {
+  const card = e.target.closest('.theme-card');
+  if (!card) return;
+
+  const id = card.dataset.themeId;
+  const doc = themeDataMap.get(id);
+  if (!doc) return;
+
+  accentPicker.value = hslToHex(doc.hue, doc.saturation, doc.lightness);
+  saturationValue.textContent = `${doc.saturation}%`;
+  saturationSlider.value = doc.saturation;
+  secondaryType.value = doc.secondaryType;
+  updateThemeFromRandomAccent(
+    doc.hue,
+    doc.saturation,
+    doc.lightness,
+    doc.secondaryType,
+    doc.font
+  );
+});
+}).catch(err => {
+  console.error('Failed to fetch trending themes:', err);
+  loading.textContent = 'Failed to load themes.';
+});
+
+
 
 function hexToHSL(hex) {
   let r = 0, g = 0, b = 0;
@@ -54,6 +131,42 @@ function hexToHSL(hex) {
   return { h: Math.round(h), s: Math.round(s * 100), l: Math.round(l * 100) };
 }
 
+function hslToHex(h, s, l) {
+  s /= 100;
+  l /= 100;
+
+  let c = (1 - Math.abs(2 * l - 1)) * s;
+  let x = c * (1 - Math.abs((h / 60) % 2 - 1));
+  let m = l - c / 2;
+
+  let r = 0, g = 0, b = 0;
+
+  if (0 <= h && h < 60) {
+    r = c; g = x; b = 0;
+  } else if (60 <= h && h < 120) {
+    r = x; g = c; b = 0;
+  } else if (120 <= h && h < 180) {
+    r = 0; g = c; b = x;
+  } else if (180 <= h && h < 240) {
+    r = 0; g = x; b = c;
+  } else if (240 <= h && h < 300) {
+    r = x; g = 0; b = c;
+  } else if (300 <= h && h < 360) {
+    r = c; g = 0; b = x;
+  }
+
+  r = Math.round((r + m) * 255);
+  g = Math.round((g + m) * 255);
+  b = Math.round((b + m) * 255);
+
+  return (
+    '#' +
+    r.toString(16).padStart(2, '0') +
+    g.toString(16).padStart(2, '0') +
+    b.toString(16).padStart(2, '0')
+  ).toUpperCase();
+}
+
 function hslToRgb(h, s, l) {
   s /= 100; l /= 100;
   const c = (1 - Math.abs(2 * l - 1)) * s;
@@ -83,14 +196,16 @@ function getSecondaryHue(primaryHue, type) {
   const hueMap = {
     'complementary': 180,
     'analogous': 30,
-    'analogous-negative': 330,
+    'analogous-negative': -30,
     'triadic': 120,
     'split-complementary': 150,
-    'split-complementary-negative': 210,
+    'split-complementary-negative': -150,
     'tetradic': 90,
     'monochromatic': 0
   };
-  return (primaryHue + (hueMap[type] || 0)) % 360;
+  let shift = hueMap[type] || 0;
+  let result = (primaryHue + shift) % 360;
+  return (result + 360) % 360; // ensure positive value
 }
 
 function getColorString(format, h, s, l) {
@@ -118,12 +233,11 @@ function getColorString(format, h, s, l) {
 }
 
 function getRandomTheme() {
-  const letters = '0123456789ABCDEF';
-  let randomColor = '#';
-  for (let i = 0; i < 6; i++) {
-    randomColor += letters[Math.floor(Math.random() * 16)];
-  }
-  accentPicker.value = randomColor;
+  const h = Math.floor(Math.random() * 360);        // Hue: 0–359
+  const s = Math.floor(Math.random() * 51) + 50;     // Saturation: 50%–100% (more colorful)
+  const l = Math.floor(Math.random() * 41) + 30;     // Lightness: 30%–70% (avoid too dark/light)
+
+  accentPicker.value = hslToHex(h, s, l);
 
   const secondary = [
     'complementary',
@@ -138,21 +252,18 @@ function getRandomTheme() {
   const randomSecondaryType = secondary[Math.floor(Math.random() * secondaryType.length)];
   secondaryType.value = randomSecondaryType;
   
-  const randomSaturation = Math.floor(Math.random() * 51) + 50; // Random radomSbetween 50% and 100%
-  saturationValue.textContent = `${randomSaturation}%`;
-  saturationSlider.value = randomSaturation;
+  saturationValue.textContent = `${s}%`;
+  saturationSlider.value = s;
 
   const fontIndex = Math.floor(Math.random() * allGoogleFonts.length);
   const randomFont = allGoogleFonts[fontIndex];
 
-  updateThemeFromRandomAccent(randomColor, randomSecondaryType, randomSaturation, randomFont);
+  updateThemeFromRandomAccent(h ,s ,l , randomSecondaryType, randomFont);
 }
 
 // === Theme Update ===
 
-function updateThemeFromRandomAccent(randomHex, randomSecondaryType, randomSaturation, randomFont) {
-  let { h, s, l } = hexToHSL(randomHex);
-  s = randomSaturation; // Use random saturation
+function updateThemeFromRandomAccent(h ,s ,l , randomSecondaryType, randomFont) {
   const isDark = document.body.classList.contains('dark');
   
 
@@ -304,11 +415,31 @@ function saveThemePreset() {
   presetList.value = name;
   saveThemeBtn.textContent = 'Saved!';
   setTimeout(() => { saveThemeBtn.textContent = 'Save'; }, 1200);
+
+  let { h, s, l } = hexToHSL(accentPicker.value);
+
+  databases.createDocument(
+  '687b3b3b0011d5710d77',
+  '687b3bf200180bc11712',
+  'unique()', // Document ID, use 'unique()' to auto-generate
+  {
+    name: name,
+    hue: h,
+    saturation: s,
+    lightness: l,
+    secondaryType: secondaryType.value,
+    font: googleFontSelect.value || 'sans-serif'
+  }
+  ).then(response => {
+    console.log('Document created:', response);
+  }).catch(error => {
+    console.error('Failed to create document:', error);
+  });
 }
 
 function updatePresetList() {
   let presets = JSON.parse(localStorage.getItem('themePresets') || '{}');
-  presetList.innerHTML = '<option value="">Load Preset...</option>';
+  presetList.innerHTML = '<option value="">Saved Preset...</option>';
   Object.keys(presets).forEach(name => {
     let opt = document.createElement('option');
     opt.value = name;
@@ -350,6 +481,24 @@ function deleteThemePreset() {
   localStorage.setItem('themePresets', JSON.stringify(presets));
   updatePresetList();
   presetList.value = "";
+  let {h, s, l} = hexToHSL(accentPicker.value);
+  databases.listDocuments('687b3b3b0011d5710d77', '687b3bf200180bc11712', [
+    Query.equal('name', name),
+    Query.equal('hue', h)
+  ])
+  .then(result => {
+    if (result.documents.length > 0) {
+      const docId = result.documents[0].$id;
+      databases.deleteDocument('687b3b3b0011d5710d77', '687b3bf200180bc11712', docId)
+        .then(() => {
+          console.log('Deleted from Appwrite');
+        })
+        .catch(err => console.error('Delete failed:', err));
+    } else {
+      console.log('No Appwrite doc found with that name.');
+    }
+  })
+  .catch(err => console.error('Search failed:', err));
 }
 
 // === Event Listeners ===
@@ -447,42 +596,3 @@ async function loadGoogleFonts(selectedFont = '') {
 saturationValue.textContent = `${saturationSlider.value}%`;
 
 
-
-
-
-
-
-
-
-
-
-
-
-// ...existing event listeners...
-
-
-
-
-
-
-
-
-
-
-
-// Font search
-
-
-// --- Preset logic (merged color + font) ---
-
-
-
-// Event listeners
-
-
-// ...existing code for deleteThemePreset, event listeners, etc...
-
-// On page load, populate preset list and fonts
-
-
-// ...existing code...

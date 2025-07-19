@@ -41,9 +41,12 @@ body {
 
 /* Responsive container */
 h1{
-  margin: 1rem 0;
+  margin-bottom: 1rem;
 }
 
+h2{
+  margin:0.8rem 0;
+}
 input[type="checkbox"] {
   accent-color: var(--accent);
 }
@@ -438,4 +441,19 @@ body.dark .code-block {
 
 .gradient-border-mask:hover {
   color: white; /* Optional: text color when filled */
+}
+
+.themes-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 16px;
+  margin: 10px 0;
+}
+
+.theme-color {
+  max-width: 100%;
+  text-align: center;
+  font-size: 1rem;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
 }
