@@ -235,7 +235,7 @@ function getColorString(format, h, s, l) {
 function getRandomTheme() {
   const h = Math.floor(Math.random() * 360);        // Hue: 0–359
   const s = Math.floor(Math.random() * 51) + 50;     // Saturation: 50%–100% (more colorful)
-  const l = Math.floor(Math.random() * 46) + 15;     // Lightness: 15%–60% (avoid too dark/light)
+  const l = Math.floor(Math.random() * 36) + 15;     // Lightness: 15%–50% (avoid too dark/light)
 
   accentPicker.value = hslToHex(h, s, l);
 
@@ -268,10 +268,8 @@ function updateThemeFromRandomAccent(h ,s ,l , randomSecondaryType, randomFont) 
   
 
   const secondaryHue = getSecondaryHue(h, randomSecondaryType);
-  // const secondaryS = Math.max(s - 15, 5);
-  // const secondaryL = Math.min(l + 20, 90);
-  const secondaryS = s;
-  const secondaryL = l;
+  const secondaryS = Math.max(s - 15, 5);
+  const secondaryL = Math.min(l + 20 , 60);
   const secondaryColor = `hsl(${secondaryHue}, ${secondaryS}%, ${secondaryL}%)`;
   
   // Set CSS variables
@@ -306,7 +304,7 @@ function updateThemeFromAccent(hex) {
 
   const secondaryHue = getSecondaryHue(h, secondaryType.value);
   const secondaryS = Math.max(s - 15, 5);
-  const secondaryL = Math.min(l + 20, 90);
+  const secondaryL = Math.min(l + 20, 60);
   const secondaryColor = `hsl(${secondaryHue}, ${secondaryS}%, ${secondaryL}%)`;
 
   // Set CSS variables
