@@ -425,7 +425,7 @@ function saveThemePreset() {
   {
     name: name,
     hue: h,
-    saturation: s,
+    saturation: saturationSlider.value,
     lightness: l,
     secondaryType: secondaryType.value,
     font: googleFontSelect.value || 'sans-serif'
