@@ -415,6 +415,26 @@ function saveThemePreset() {
   presetList.value = name;
   saveThemeBtn.textContent = 'Saved!';
   setTimeout(() => { saveThemeBtn.textContent = 'Save'; }, 1200);
+
+  let { h, s, l } = hexToHSL(accentPicker.value);
+
+  databases.createDocument(
+  '687b3b3b0011d5710d77',
+  '687b3bf200180bc11712',
+  'unique()', // Document ID, use 'unique()' to auto-generate
+  {
+    name: name,
+    hue: h,
+    saturation: saturationSlider.value,
+    lightness: l,
+    secondaryType: secondaryType.value,
+    font: googleFontSelect.value || 'sans-serif'
+  }
+  ).then(response => {
+    console.log('Document created:', response);
+  }).catch(error => {
+    console.error('Failed to create document:', error);
+  });
 }
 
 function updatePresetList() {
