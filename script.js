@@ -175,6 +175,7 @@ randomThemeBtn.addEventListener('click', () =>{
 window.addEventListener('DOMContentLoaded', () => {
   updatePresetList();
   loadGoogleFonts();
+  getRandomTheme();
 });
 
 // === Initial Setup ===
