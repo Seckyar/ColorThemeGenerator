@@ -1,0 +1,25 @@
+:root {
+  --hue: 253;
+  --saturation: 92%;
+  --lightness: 30%;
+  --accent: hsl(var(--hue), var(--saturation), var(--lightness));
+  --secondary-hue: 223;
+  --secondary-saturation: 85%;
+  --secondary-lightness: 50%;
+  --dark-saturation: 20%;
+  --secondary: hsl(var(--secondary-hue), var(--secondary-saturation), var(--secondary-lightness));
+  --bg-color: hsl(var(--hue), var(--saturation), 98%);
+  --input-color: hsl(var(--hue), var(--saturation), 97%);
+  --text-color: hsl(var(--hue), var(--saturation), 15%); 
+  --border-color: hsl(var(--hue), var(--saturation), 85%);
+  --card-bg-color: hsl(var(--hue), var(--saturation), 95%);
+  --error: hsl(0, var(--saturation), 40%);
+}
+
+body.dark {
+  --bg-color: hsl(var(--hue), var(--dark-saturation), 4%);
+  --text-color: hsl(var(--hue), var(--dark-saturation), 90%);
+  --input-color: hsl(var(--hue), var(--dark-saturation), 5%);
+  --border-color: hsl(var(--hue), var(--dark-saturation), 20%);
+  --card-bg-color: hsl(var(--hue), var(--dark-saturation), 8%);
+}

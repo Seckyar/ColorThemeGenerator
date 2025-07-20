@@ -3,8 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dynamic Color Theme Generator</title>
+  <title>Color Theme Generator</title>
+  <link rel="stylesheet" href="variables.css">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="about.css" />
   <script src="https://cdn.jsdelivr.net/npm/culori@4.0.1/bundled/culori.min.js"></script>
   <!-- CDN in HTML -->
   <script src="https://cdn.jsdelivr.net/npm/appwrite@13.0.1"></script>
@@ -12,8 +14,40 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
-<h1>Dynamic Color Theme Generator</h1>
+<h1>Color Theme Generator</h1>
+<!-- About Button -->
+
+<!-- About Modal -->
+<div id="aboutModal" class="modal">
+  <div class="modal-content">
+    <span class="closeBtn" id="closeAboutBtn">&times;</span>
+    <h2>Color Theme Generator</h2>
+    <p><strong>ColorThemeGenerator</strong> is a simple tool to design and customize CSS themes using your chosen <em>accent color</em>, <em>secondary color type</em>, <em>saturation</em>, and <em>Google Fonts</em>. You can preview changes live and save your favorite looks.</p>
+    
+    <h3>✨ Features</h3>
+    <ul>
+      <li>Accent color picker with live preview</li>
+      <li>Dark/light mode toggle</li>
+      <li>Saturation control</li>
+      <li>Google Fonts support</li>
+      <li>Save and reuse themes</li>
+      <li>Export as HEX, RGB, HSL, LCH, OKLCH</li>
+      <li>Ready-to-use CSS variables + @import</li>
+    </ul>
+
+    <h3>🛠 Built With</h3>
+    <ul>
+      <li>HTML, CSS, JavaScript</li>
+      <li>Google Fonts API</li>
+      <li>Local Storage</li>
+    </ul>
+
+    <p>🔗 <a href="https://github.com/Seckyar/ColorThemeGenerator" target="_blank">View GitHub Repo</a></p>
+  </div>
+</div>
+
 <div class="controls">
+  <button id="openAboutBtn" class="accent-btn changeable">What is this website?</button> 
     <div class="control-group">
       Pick Accent Color:
       <input type="color" id="accentPicker" value="#250693">
@@ -119,8 +153,12 @@
 </div>
 
   <div class="footer">
-    <p>Version 1.8.0 Created by Seckyar with ChatGPT for FUN!!</p>
+    <p>Version 1.9.0 Created by Seckyar with ChatGPT for FUN!!</p>
   </div>
+  
+  <script src="./modules/color.js"></script>
+  <script src="./modules/theme.js"></script>
+  <script src="./modules/preset.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

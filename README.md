@@ -1,6 +1,6 @@
-# 🎨 Dynamic Color Theme Generator
+# 🎨 Color Theme Generator
 
-A simple, customizable theme generator that allows you to build a beautiful, modern CSS theme based on your preferred **accent color**, **dark mode**, **saturation level**, **Google Font**, and includes a **save feature** to preserve your custom themes.
+A simple, customizable theme generator that allows you to build a beautiful, modern CSS theme based on your preferred **accent color**, **secondary color type**, **saturation level**, **Google Font**, and includes a **save feature** to preserve your custom themes.
 
 ## ✨ Features
 
