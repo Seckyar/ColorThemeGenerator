@@ -17,37 +17,10 @@
 <h1>Color Theme Generator</h1>
 <!-- About Button -->
 
-<!-- About Modal -->
-<div id="aboutModal" class="modal">
-  <div class="modal-content">
-    <span class="closeBtn" id="closeAboutBtn">&times;</span>
-    <h2>Color Theme Generator</h2>
-    <p><strong>ColorThemeGenerator</strong> is a simple tool to design and customize CSS themes using your chosen <em>accent color</em>, <em>secondary color type</em>, <em>saturation</em>, and <em>Google Fonts</em>. You can preview changes live and save your favorite looks.</p>
-    
-    <h3>✨ Features</h3>
-    <ul>
-      <li>Accent color picker with live preview</li>
-      <li>Dark/light mode toggle</li>
-      <li>Saturation control</li>
-      <li>Google Fonts support</li>
-      <li>Save and reuse themes</li>
-      <li>Export as HEX, RGB, HSL, LCH, OKLCH</li>
-      <li>Ready-to-use CSS variables + @import</li>
-    </ul>
 
-    <h3>🛠 Built With</h3>
-    <ul>
-      <li>HTML, CSS, JavaScript</li>
-      <li>Google Fonts API</li>
-      <li>Local Storage</li>
-    </ul>
-
-    <p>🔗 <a href="https://github.com/Seckyar/ColorThemeGenerator" target="_blank">View GitHub Repo</a></p>
-  </div>
-</div>
 
 <div class="controls">
-  <button id="openAboutBtn" class="accent-btn changeable">What is this website?</button> 
+  <button class="accent-btn btn changeable" onclick="location.href='#features'">What is this website?</button> 
     <div class="control-group">
       Pick Accent Color:
       <input type="color" id="accentPicker" value="#250693">
@@ -102,29 +75,16 @@
 </div>
 <div class="preview">
   <h1>Preview</h1>
-  <div class="card">
-    <div class="card-content">
-      <h2><div class="card-icon"></div>Example Card</h2>
-      <p>This card uses background, border, and accent colors based on your theme.</p>
-      <button class="accent-btn btn changeable">Click Me</button>
-    </div>
   </div>
   <!-- More UI Examples -->
-  <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; margin-bottom: 1.5rem; justify-content: center;">
-    <!-- Social Media Icon Buttons -->
-    <button class="icon-btn" title="Twitter"><i class="fab fa-twitter"></i></button>
-    <button class="icon-btn" title="Facebook"><i class="fab fa-facebook-f"></i></button>
-    <button class="icon-btn" title="Instagram"><i class="fab fa-instagram"></i></button>
-    <button class="icon-btn" title="Github"><i class="fab fa-github"></i></button>
-    <!-- Secondary Button -->
-    
-  </div>
+  
   <div class="split-form">
       <div class="image-side changeable">
           <h2>Welcome Back!</h2>
           <p>Enter your details to access your account</p>
       </div>
       <div class="form-side">
+          <h4>-- for visual only --</h4>
           <h2>Sign In</h2>
           <form>
               <input type="email" placeholder="Email" required>
@@ -132,6 +92,68 @@
               <button class="changeable" type="submit">Login</button>
           </form>
       </div>
+  </div>
+  
+  <section class="pricing-section" >
+  <h2 class="section-title">Pricing Plans</h2>
+  <div class="pricing-cards">
+    <div class="pricing-card">
+      <h3>Basic</h3>
+      <p class="price">Free</p>
+      <ul class="features">
+        <li><span class="check">✔</span> Accent color customization</li>
+        <li><span class="check">✔</span> Dark/light mode</li>
+        <li><span class="check">✔</span> Google Fonts</li>
+      </ul>
+      <button class="accent-btn btn changeable">Get Started</button>
+    </div>
+
+    <div class="pricing-card highlight">
+      <h3>Pro</h3>
+      <p class="price">0.00$/month</p>
+      <ul class="features">
+        <li><span class="check">✔</span> All Basic features</li>
+        <li><span class="check">✔</span> Saturation control</li>
+        <li><span class="check">✔</span> Export to HEX, RGB, HSL</li>
+      </ul>
+      <button class="btn highlight-btn">Get Started</button>
+    </div>
+
+    <div class="pricing-card">
+      <h3>Ultimate</h3>
+      <p class="price">0.00$/year</p>
+      <ul class="features">
+        <li><span class="check">✔</span> All Pro features</li>
+        <li><span class="check">✔</span> Save & reuse themes</li>
+        <li><span class="check">✔</span> Full CSS variable export</li>
+      </ul>
+      <button class="accent-btn btn changeable">Get Started</button>
+    </div>
+  </div>
+</section>
+<section class="how-it-works-card" id="features">
+  <h2>How the Website Works</h2>
+  <p>ColorThemeGenerator helps you build custom CSS themes by adjusting:</p>
+  <ul>
+    <li><strong>Accent Color:</strong> Pick any color you like.</li>
+    <li><strong>Secondary Color:</strong> Pick a type for secondary color from list.</li>
+    <li><strong>Dark Mode:</strong> Toggle between light and dark modes.</li>
+    <li><strong>Saturation:</strong> Adjust how vibrant your theme feels.</li>
+    <li><strong>Font:</strong> Choose a Google Font that suits your design.</li>
+    <li><strong>Export:</strong> Copy your theme's CSS variables to use anywhere.</li>
+    <li><strong>Save:</strong> Save your favorite theme setup in your browser.</li>
+  </ul>
+  <p>You can instantly preview changes and reuse your theme anytime — all for free.</p>
+</section>
+
+<div style="display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; margin-bottom: 1.5rem; justify-content: center;">
+    <!-- Social Media Icon Buttons -->
+    <button class="icon-btn" title="Twitter"><i class="fab fa-twitter"></i></button>
+    <button class="icon-btn" title="Facebook"><i class="fab fa-facebook-f"></i></button>
+    <button class="icon-btn" title="Instagram"><i class="fab fa-instagram"></i></button>
+    <button class="icon-btn" title="Github"><i class="fab fa-github"></i></button>
+    <!-- Secondary Button -->
+    
   </div>
   <!-- <h3>Font CSS Code:</h3>
   <pre id="fontCode" class="code-block"></pre> -->
@@ -153,7 +175,7 @@
 </div>
 
   <div class="footer">
-    <p>Version 1.9.0 Created by Seckyar with ChatGPT for FUN!!</p>
+    <p>Version 1.10.0 Created by Seckyar with a Chit</p>
   </div>
   
   <script src="./modules/color.js"></script>
