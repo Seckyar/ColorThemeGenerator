@@ -382,6 +382,8 @@ body.dark .code-block {
 }
 
 .pricing-card {
+  display: flex;
+  flex-direction: column;
   background: var(--card-bg-color);
   border: 2px solid var(--border-color);
   border-radius: 1rem;
@@ -438,6 +440,7 @@ color:white;
 }
 .pricing-card .btn{
   width: 100% ;
+  margin-top: auto;
 }
 .highlight {
   background-color: var(--accent);
