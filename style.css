@@ -14,6 +14,7 @@ body {
   transition: all 0.3s ease;
 }
 
+
 .btn, .accent-btn, .secondary-btn, .badge, .tag, input[type="text"], input[type="email"], input[type="password"], input[type="sumbit"], button {
   font-family: inherit !important;
 }
@@ -427,6 +428,7 @@ body.dark .code-block {
 
 .highlight-btn{
   background-color: white;
+  color: var(--text-color);
   border: none;
   font-size: 1rem;
   padding: 0.5rem 1rem;
@@ -446,7 +448,6 @@ color:white;
   background-color: var(--accent);
   color: white;
 }
-
 .highlight .price,
 .highlight .check {
   color: white;

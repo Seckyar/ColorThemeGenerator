@@ -51,7 +51,7 @@ databases.listDocuments(
 const themeDataMap = new Map();
 
 response.documents.forEach(doc => {
-  const { hue, saturation, lightness, font, name } = doc;
+  const { hue, saturation, lightness, name } = doc;
   const color = `hsl(${hue}, ${saturation}%, ${lightness}%)`;
 
   const card = document.createElement('div');
