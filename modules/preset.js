@@ -13,26 +13,6 @@ function saveThemePreset() {
   presetList.value = name;
   saveThemeBtn.textContent = 'Saved!';
   setTimeout(() => { saveThemeBtn.textContent = 'Save'; }, 1200);
-
-  let { h, s, l } = hexToHSL(accentPicker.value);
-
-  databases.createDocument(
-  '687b3b3b0011d5710d77',
-  '687b3bf200180bc11712',
-  'unique()', // Document ID, use 'unique()' to auto-generate
-  {
-    name: name,
-    hue: h,
-    saturation: parseInt(saturationSlider.value),
-    lightness: l,
-    secondaryType: secondaryType.value,
-    font: googleFontSelect.value || 'sans-serif'
-  }
-  ).then(response => {
-    console.log('Document created:', response);
-  }).catch(error => {
-    console.error('Failed to create document:', error);
-  });
 }
 
 function updatePresetList() {
@@ -79,22 +59,4 @@ function deleteThemePreset() {
   localStorage.setItem('themePresets', JSON.stringify(presets));
   updatePresetList();
   presetList.value = "";
-  let {h, s, l} = hexToHSL(accentPicker.value);
-  databases.listDocuments('687b3b3b0011d5710d77', '687b3bf200180bc11712', [
-    Query.equal('name', name),
-    Query.equal('hue', h)
-  ])
-  .then(result => {
-    if (result.documents.length > 0) {
-      const docId = result.documents[0].$id;
-      databases.deleteDocument('687b3b3b0011d5710d77', '687b3bf200180bc11712', docId)
-        .then(() => {
-          console.log('Deleted from Appwrite');
-        })
-        .catch(err => console.error('Delete failed:', err));
-    } else {
-      console.log('No Appwrite doc found with that name.');
-    }
-  })
-  .catch(err => console.error('Search failed:', err));
 }
