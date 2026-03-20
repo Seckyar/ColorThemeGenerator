@@ -114,3 +114,43 @@ function getColorString(format, h, s, l) {
   }
 }
 
+function getRelativeLuminance(rgb) {
+  const toLinear = (channel) => {
+    const c = channel / 255;
+    return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+  };
+
+  const r = toLinear(rgb.r);
+  const g = toLinear(rgb.g);
+  const b = toLinear(rgb.b);
+
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+}
+
+function getContrastRatio(rgb1, rgb2) {
+  const L1 = getRelativeLuminance(rgb1);
+  const L2 = getRelativeLuminance(rgb2);
+  const lighter = Math.max(L1, L2);
+  const darker = Math.min(L1, L2);
+  return (lighter + 0.05) / (darker + 0.05);
+}
+
+function rgbObjToString(rgb) {
+  return `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`;
+}
+
+function getReadableTextColor(rgb) {
+  const white = { r: 255, g: 255, b: 255 };
+  const black = { r: 0, g: 0, b: 0 };
+  const whiteContrast = getContrastRatio(rgb, white);
+  const blackContrast = getContrastRatio(rgb, black);
+  return whiteContrast >= blackContrast ? '#fff' : '#000';
+}
+
+function getContrastLevel(ratio) {
+  if (ratio >= 7) return 'AAA';
+  if (ratio >= 4.5) return 'AA';
+  if (ratio >= 3) return 'AA Large';
+  return 'Fail';
+}
+

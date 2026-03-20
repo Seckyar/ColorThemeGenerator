@@ -17,14 +17,18 @@ function updateThemeFromAccent(hex) {
   root.setProperty('--secondary-saturation', `${secondaryS}%`);
   root.setProperty('--secondary-lightness', `${secondaryL}%`);
 
+  // Accent and secondary text colors for dark backgrounds
+  const secondaryRgb = hslToRgb(secondaryHue, secondaryS, secondaryL);
+  root.setProperty('--accent-text-color', getReadableTextColor(hslToRgb(h, s, l)));
+  root.setProperty('--secondary-text-color', getReadableTextColor(secondaryRgb));
+
   // Preview color
   secondaryPreview.style.background = secondaryColor;
 
-  // Text color adjustment for contrast
-  const changeables = document.getElementsByClassName('changeable');
-  for (let el of changeables) {
-    el.style.color = l > 65 ? 'black' : 'white';
-  }
+  // Text color adjustment for contrast (smart one)
+  const accentRgb = hslToRgb(h, s, l);
+  const themeTextColor = getReadableTextColor(accentRgb);
+  root.setProperty('--changeable-text-color', themeTextColor);
 
   // Set dark mode saturation
   root.setProperty('--dark-saturation', `${isDark ? Math.round(s * 0.7) : s}%`);
@@ -86,14 +90,18 @@ function updateThemeFromRandomAccent(h ,s ,l , randomSecondaryType, randomFont) 
   root.setProperty('--secondary-saturation', `${secondaryS}%`);
   root.setProperty('--secondary-lightness', `${secondaryL}%`);
 
+  // Accent and secondary text colors for dark backgrounds
+  const secondaryRgb = hslToRgb(secondaryHue, secondaryS, secondaryL);
+  root.setProperty('--accent-text-color', getReadableTextColor(hslToRgb(h, s, l)));
+  root.setProperty('--secondary-text-color', getReadableTextColor(secondaryRgb));
+
   // Preview color
   secondaryPreview.style.background = secondaryColor;
 
   // Text color adjustment for contrast
-  const changeables = document.getElementsByClassName('changeable');
-  for (let el of changeables) {
-    el.style.color = l > 65 ? 'black' : 'white';
-  }
+  const accentRgb = hslToRgb(h, s, l);
+  const themeTextColor = getReadableTextColor(accentRgb);
+  root.setProperty('--changeable-text-color', themeTextColor);
 
   // Set dark mode saturation
   root.setProperty('--dark-saturation', `${isDark ? Math.round(s * 0.7) : s}%`);
@@ -159,6 +167,58 @@ function updateCodeSnippet(h, s, l, isDark, secondaryHue, secondaryS, secondaryL
 }`;
 
   themeCode.textContent = fontImport + fontCSS + lightCSS + (isDark ? `\n\n${darkCSS}` : '');
+  updateContrastChecker(h, s, l, secondaryHue, secondaryS, secondaryL, isDark);
+}
+
+function updateContrastChecker(h, s, l, secondaryHue, secondaryS, secondaryL, isDark) {
+  const accentRgb = hslToRgb(h, s, l);
+  const secondaryRgb = hslToRgb(secondaryHue, secondaryS, secondaryL);
+  const lightBgRgb = hslToRgb(h, s, 98);
+  const darkBgRgb = hslToRgb(h, Math.round(s * 0.7), 4);
+
+  const accentTextRgb = getReadableTextColor(accentRgb) === '#fff' ? {r:255,g:255,b:255} : {r:0,g:0,b:0};
+  const secondaryTextRgb = getReadableTextColor(secondaryRgb) === '#fff' ? {r:255,g:255,b:255} : {r:0,g:0,b:0};
+  const darkTextRgb = getReadableTextColor(darkBgRgb) === '#fff' ? {r:255,g:255,b:255} : {r:0,g:0,b:0};
+
+  const contrastPairs = [
+    { label: 'Accent / Light Background', fg: accentRgb, bg: lightBgRgb },
+    { label: 'Secondary / Light Background', fg: secondaryRgb, bg: lightBgRgb },
+    { label: 'Text (accent) / Accent', fg: accentTextRgb, bg: accentRgb },
+    { label: 'Text (secondary) / Secondary', fg: secondaryTextRgb, bg: secondaryRgb },
+    { label: 'Dark Mode BG / Text', fg: darkTextRgb, bg: darkBgRgb }
+  ];
+
+  const contrastSection = document.getElementById('contrastResults');
+  if (!contrastSection) return;
+
+  contrastSection.innerHTML = contrastPairs.map((item) => {
+    const ratio = getContrastRatio(item.fg, item.bg);
+    const level = getContrastLevel(ratio);
+    const passed = ratio >= 4.5;
+    const statusEmoji = passed ? '✔' : '✖';
+    const levelClass = level.toLowerCase().replace(' ', '-');
+    const fgHex = rgbToHex(item.fg.r, item.fg.g, item.fg.b);
+    const bgHex = rgbToHex(item.bg.r, item.bg.g, item.bg.b);
+
+    return `
+      <div class="contrast-row">
+        <span class="contrast-icon" aria-hidden="true">${statusEmoji}</span>
+        <span class="contrast-swatch" style="background:${bgHex}; color:${fgHex}; border-color:${fgHex};">Aa</span>
+        <div class="contrast-meta">
+          <div><strong>${item.label}</strong></div>
+          <div>
+            <span class="contrast-value">${ratio.toFixed(2)}:1</span>
+            <span class="contrast-level ${levelClass}">${level}</span>
+            <span class="contrast-hex">${fgHex} / ${bgHex}</span>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  const passFail = isDark ? (getContrastRatio(darkBgRgb, darkTextRgb) >= 4.5) : (getContrastRatio(lightBgRgb, lightTextRgb) >= 4.5);
+  const summary = document.getElementById('contrastSummary');
+  
 }
 
 function getSecondaryHue(primaryHue, type) {

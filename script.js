@@ -20,6 +20,7 @@ const googleFontSelect = document.getElementById('googleFontSelect');
 const googleFontSearch = document.getElementById('googleFontSearch');
 
 const GOOGLE_FONTS_API_KEY = 'AIzaSyBwy2Hf-lIgw09WmhCbQ9ngPK7bEnwjviY';
+// Replace with your own Google Fonts API key from https://console.cloud.google.com/ to load the full font list
 let allGoogleFonts = [];
 
 
@@ -106,7 +107,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 async function loadGoogleFonts(selectedFont = '') {
   googleFontSelect.innerHTML = `<option value="">Loading fonts...</option>`;
-  try {
+
     const res = await fetch(`https://www.googleapis.com/webfonts/v1/webfonts?key=${GOOGLE_FONTS_API_KEY}`);
     const data = await res.json();
     data.items.sort((a, b) => a.family.localeCompare(b.family));
@@ -116,9 +117,7 @@ async function loadGoogleFonts(selectedFont = '') {
     let fontToSelect = selectedFont || 'Roboto';
     renderGoogleFontOptions(allGoogleFonts, fontToSelect);
     setGoogleFont(fontToSelect, true);
-  } catch (e) {
-    googleFontSelect.innerHTML = `<option value="">Failed to load fonts</option>`;
-  }
+   
 }
 
 saturationValue.textContent = `${saturationSlider.value}%`;

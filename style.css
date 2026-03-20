@@ -48,6 +48,7 @@ input[type="select"] {
 
 .accent-btn {
   background-color: var(--accent);
+  color: var(--accent-text-color, white) !important;
   border: none;
   font-size: 1rem;
   padding: 0.5rem 1rem;
@@ -56,8 +57,12 @@ input[type="select"] {
   transition: background 0.4s, color 0.4s;
 }
 
+.secondary-btn {
+  color: var(--secondary-text-color, white) !important;
+}
+
 .changeable{
-  color:white;
+  color: var(--changeable-text-color, white) !important;
 }
 
 .btn {
@@ -140,6 +145,90 @@ body.dark .code-block {
   display: inline-block;
 }
 
+.contrast-checker {
+  border: 1px solid var(--border-color);
+  background: var(--card-bg-color);
+  padding: 0.8rem;
+  border-radius: 0.6rem;
+  margin: 1em 0;
+}
+
+.contrast-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  padding: 0.2rem 0;
+  font-size: 0.9rem;
+}
+
+.contrast-icon {
+  width: 1.2rem;
+  display: inline-flex;
+  justify-content: center;
+  color: #0a0;
+  font-weight: bold;
+}
+
+.contrast-row .contrast-icon {
+  color: inherit;
+}
+
+.contrast-row span.contrast-level {
+  font-weight: 700;
+  border-radius: 0.25rem;
+  padding: 0.1rem 0.35rem;
+  font-size: 0.82rem;
+  color: #fff;
+}
+
+.contrast-row span.contrast-level.aaa { background: #0a0; }
+.contrast-row span.contrast-level.aa { background: #5a5; color: #111; }
+.contrast-row span.contrast-level.aa-large { background: #2b8; color: #111; }
+.contrast-row span.contrast-level.fail { background: #a00; }
+
+.contrast-row {
+  display: flex;
+  align-items: center;
+  padding: 0.25rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.contrast-swatch {
+  width: 3rem;
+  height: 1.75rem;
+  border-radius: 0.35rem;
+  border: 1px solid #999;
+  font-size: 0.8rem;
+  font-weight: bold;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 0.5rem;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.1), inset 0 -1px 0 rgba(0,0,0,.2);
+}
+
+.contrast-meta {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 0.1rem;
+  min-width: 220px;
+}
+
+.contrast-value,
+.contrast-hex {
+  padding: 0.1rem 0.35rem;
+  border-radius: 0.25rem;
+  background: rgba(0,0,0,0.06);
+  margin-left: 0.4rem;
+  font-size: 0.8rem;
+}
+
+.contrast-level {
+  margin-left: 0.35rem;
+}
+
 /* ...existing code... */
 /* ...existing code... */
 
@@ -164,7 +253,7 @@ body.dark .code-block {
 
 .secondary-btn {
   background: var(--secondary);
-  color: #fff;
+  color: var(--secondary-text-color, #fff);
   border: none;
   border-radius: 0.5rem;
   padding: 0.5rem 1rem;
